@@ -1,0 +1,141 @@
+/**
+ * Checkboxs
+ */
+.checkboxs-green{
+    width: 24px;
+    height: 24px;
+    background: #ddd;
+    border-radius: 100px;
+    position: relative;
+    -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+    font-family: "VAGRounded","Microsoft YaHei","宋体",sans-serif;
+}
+.checkboxs-green input[type=checkbox]{
+    outline: none;
+    -webkit-opacity:0;
+    -moz-opacity: 0;
+    opacity: 0;
+    filter: alpha(opacity:0); 
+}
+.checkboxs-green input[type=checkbox]:focus {
+    outline: none;
+}
+.checkboxs-green .bglabel{
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 100px; 
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: 1; 
+    background: #b5aeae;
+    -webkit-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+    font-family: "VAGRounded","Microsoft YaHei","宋体",sans-serif;
+}
+
+.checkboxs-green input[type=checkbox]:checked+label{
+    background: #95cf3c;
+}
+
+/**
+ * Checkbox-green
+ */
+.checkbox-green{
+    width: 24px;
+    height: 24px;
+    background: #ddd;
+    border-radius: 100px;
+    position: relative;
+    -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+    font-family: "VAGRounded","Microsoft YaHei","宋体",sans-serif;
+}
+.checkbox-green input[type=checkbox]{
+    outline: none;
+    -webkit-opacity:0;
+    -moz-opacity: 0;
+    opacity: 0;
+    filter: alpha(opacity:0); 
+}
+.checkbox-green input[type=checkbox]:focus {
+    outline: none;
+}
+.checkbox-green .bglabel{
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 100px; 
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: 1; 
+    background: #95cf3c;
+    -webkit-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+    font-family: "VAGRounded","Microsoft YaHei","宋体",sans-serif;
+}
+.checkbox-green input[type=checkbox]:checked+label{
+    background: #ff0000;
+}
+
+/**
+ * Checkbox-black
+ */
+.checkbox-black{
+    width: 24px;
+    height: 24px;
+    background: #ddd;
+    border-radius: 100px;
+    position: relative;
+    -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+    font-family: "VAGRounded","Microsoft YaHei","宋体",sans-serif;
+}
+.checkbox-black  input[type=checkbox]{
+    outline: none;
+    -webkit-opacity:0;
+    -moz-opacity: 0;
+    opacity: 0;
+    filter: alpha(opacity:0); 
+}
+.checkbox-black input[type=checkbox]:focus {
+    outline: none;
+}
+.checkbox-black .bglabel{
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 100px; 
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: 1; 
+    background: #b5aeae;
+    -webkit-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+    font-family: "VAGRounded","Microsoft YaHei","宋体",sans-serif;
+}
+.checkbox-black input[type=checkbox]:checked+label{
+    background: #95cf3c;
+}

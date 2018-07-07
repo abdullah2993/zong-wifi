@@ -1,0 +1,127 @@
+.setting{
+	display: none;
+	width:98%;
+    height: auto;
+    margin-left: auto;
+    margin-right:auto;
+}
+.setting_icon_div{
+	margin-top: 5px;
+	width: 100%;
+	height: 60px;
+}
+.setting_icon_table{
+	height: 60px;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+
+.setting_icon_table a{
+    outline: none;
+}
+.setting_icon_table a:focus {
+    outline: none;
+}
+
+.setting_icon_table img{
+	width: 35px;
+	height: 35px;
+	border: 0;
+}
+.setting_icon_table img:hover{
+	opacity:0.5;
+    filter(alpha=50);
+}
+.setting_icon_table a{
+    text-decoration:none;
+    color: #9dc852;
+    font-weight: bold;
+    font-size: 14px;
+}
+.setting_tab{
+	width: 100%;
+	height: auto;
+	margin-top: 0px;
+}
+.setting_tab_content_show{
+	margin-right: auto;
+	margin-left: auto;
+	width: 100%;
+	height: auto;
+}
+.setting_tab_content{
+	display: none;
+	margin-right: auto;
+	margin-left: auto;
+	width: 100%;
+	height: auto;
+}
+
+.setting_tab_lable_div{
+	margin-left: auto;
+	margin-right:auto;
+	width: 100%;
+}
+.setting_tab_lable{
+	color: #c9176f;
+    font-weight: bold;
+    font-size: 14px;
+}
+.setting_tab_setting{
+	width: 100%;
+}
+.setting_tab_btn_div{
+	text-align: right;
+	width: 400px;
+	height: 30px;
+	margin-right: 10px;
+	position: relative;
+    float: right;
+}
+.setting_tab_show_content{
+	width: 100%;
+	height: auto;
+}
+
+.auto_dns_table tr{	
+	height: 25px;
+}
+.manual_dns_input_table{
+	margin-left:50px;
+	width: 300px;
+}
+.manual_dns_input_table tr{
+	height: 20px;
+}
+
+.Profile_list_table tr{
+	height: 25px;
+}
+.Profile_input_table tr{
+	height: 25px;
+}
+.wlan_base_table{
+	width: 400px;
+}
+.wlan_base_table tr{
+	height: 25px;
+}
+.wlan_base_ssid_table tr{
+	height: 25px;
+}
+.wlan_advanced_setting{
+	width: 100%;
+	height: auto;
+}
+.wlan_advanced_setting_table tr{
+	height: 25px;
+}
+.wlan_auto_loader{
+	width: 100%;
+	height: auto;
+}
+.wlan_autoloader_table tr{
+	height: 25px;
+}

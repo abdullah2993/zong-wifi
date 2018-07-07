@@ -1,0 +1,3688 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="renderer" content="webkit"> 
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WIFI</title>
+<!--Public css function-->
+<link href="css/jqueryui/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="images/wireless.ico" rel="shortcut icon">
+<!-- private css function -->
+<link href="css/checkboxs.css" rel="stylesheet" type="text/css" />
+<link href="css/select.css" rel="stylesheet" type="text/css" />
+<link href="css/login.css" rel="stylesheet" type="text/css" />
+<link href="css/menu.css" rel="stylesheet" type="text/css" />
+<link href="css/head.css" rel="stylesheet" type="text/css" />
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+<link href="css/index.css" rel="stylesheet" type="text/css" />
+<link href="css/statistics.css" rel="stylesheet" type="text/css" />
+<link href="css/sms.css" rel="stylesheet" type="text/css" />
+<link href="css/upgrade.css" rel="stylesheet" type="text/css" />
+<link href="css/setting.css" rel="stylesheet" type="text/css" />
+<link href="css/dhcp.css" rel="stylesheet" type="text/css" />
+<link href="css/security.css" rel="stylesheet" type="text/css" />
+<link href="css/network.css" rel="stylesheet" type="text/css" />
+<link href="css/system.css" rel="stylesheet" type="text/css" />
+<link href="css/ipv6.css" rel="stylesheet" type="text/css" />
+<link href="css/firewall.css" rel="stylesheet" type="text/css" />
+<link href="css/status.css" rel="stylesheet" type="text/css" />
+<link href="css/advanced_setting.css" rel="stylesheet" type="text/css" />
+<!--Public javascript function-->
+<script type="text/javascript" src="js/jquery/jquery-1.7.2.min.js" language="javascript"></script>
+<script type="text/javascript" src="js/base/jQuery.Tip.js" language="javascript"></script>
+<script type="text/javascript" src="js/jquery/jquery.i18n.properties-1.0.4.js" language="javascript"></script>
+<script type="text/javascript" src="js/base/auth_head.js" language="javascript"></script>
+<script type="text/javascript" src="js/base/ajax_calls.js" language="javascript"></script>
+<script type="text/javascript" src="js/base/utils.js" language="javascript"></script>
+<script type="text/javascript" src="js/base/xml_helper.js" language="javascript"></script>
+<script type="text/javascript" src="js/library/md5.js" language="javascript"></script>
+<script type="text/javascript" src="js/base/jquery-hcheckbox.js" language="javascript"></script>
+<!--Private javascript function-->
+<script type="text/javascript" src="js/panel/base.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/language.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/menu.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/Checkbox_util.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/dialog_util.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/select_util.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/base_init.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/login.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/index.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/statistics.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/sms.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/upgrade.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/head.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/quick.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/dial.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/setting.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/wlan.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/dhcp.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/security.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/network.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/dns.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/system.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/ipv6.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/firewall.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/state.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/advanced_setting.js" language="javascript"></script>
+<script type="text/javascript" src="js/panel/PPPoE.js" language="javascript"></script>
+<!-- jquery ui -->
+<script type="text/javascript" src="js/jquery/ui/jquery-ui.min.js"></script>
+<!-- IE8 -->
+<!--[if(gte IE 6)&(lte IE 8)]>
+	<script type="text/javascript" src="js/panel/selectivizr.js" language="javascript"></script>
+<![endif]-->
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		$(document).bind("keydown",function(e){ 
+			e = window.event||e; 
+			if( e.keyCode == 116){ 
+				e.keyCode = 0; 
+				//是否已经登录，已经登录则弹出刷新框2S
+				if($.hojyStatus.isLogin){
+					open_dialog_loading();
+					setTimeout(function(){
+						close_dialog_loading();
+					},2000);
+					return false;
+				}else{
+					return true; 
+				}	
+			}
+			if(e.keyCode == 13){
+				e.keyCode = 0;
+				if($.hojyStatus.isLogin == false){
+					onLogin();
+					return false;
+				}else{
+					return true; 
+				}
+			} 
+		}); 
+
+		//兼容安卓手机浏览器后退时间，不使用缓存，重新刷新
+		checkWindowName();
+	}); 
+	//全局XML储存变量，所有xml操作都需要通过这个临时变量进行操作
+	var g_objXML = $().XML_Operations();
+
+	//窗口响应
+	$(window).on('resize', function() {
+		if(!CheckPage()){
+			init_page_zoom();
+		}	
+	}).resize();
+	
+	//兼容安卓手机浏览器后退时间，不使用缓存，重新刷新
+	function checkWindowName(){
+		if(window.name != "index"){
+			location.reload();
+			window.name = "index";
+		}else{
+			window.name = "";
+		}
+	}
+</script>
+</head>
+<body class="login_body" id="mobile_body">	
+	<!-- 对话框弹出层代码 -->
+	<!-- 提示 -->
+	<div id="dialog_message_info" style="display: none;">
+		<div style="width:100%;height:auto;">
+			<label id="dialog_message_info_text"></label>
+		</div>
+	</div>
+	<!-- 提示 -->
+	<!-- 刷新 -->
+	<div id="dialog_message_loading" class="loading_dial" style="display: none;">
+	  	<img src="images/loading.gif" alt="loading" class="loading_dial_img"/>
+	</div>
+	<!-- 刷新 -->
+	<!-- 流量设置 -->
+	<div id="paymentSettingDlg" style="display: none;">
+        <table class="tableH60" style="width:550px;">
+            <tr>
+				<td class="td_w_100">
+                	<label id="pamentDay"></label>
+				</td>
+				<td colspan="3" class="td_w_200">
+					<input type="text" size="10" id="setPaymentDay_id" maxlength="2" class="input_text_green" onkeyup="value=value.replace(/[^\d]/g,'')"/>	
+				</td>
+				<td class="td_w_200"><label id="DateScopeNote" style="color:red"></label></td>
+            </tr>
+            <tr style="text-align:center;height:20px;color:#ff0000;font-size:12px;">
+				<td colspan="5">
+					<label id="setPaymentTip"></label>
+				</td>
+            </tr>
+            <tr>
+                <td class="td_w_100">
+                    <label id="monthFlow"></label>
+                </td>
+                <td colspan="3" style="width:250px;">
+                	<input type="text" size="10" id="setMonthFlow" min="0" maxlength="4" class="input_text_green" onkeyup="value=value.replace(/[^\d]/g,'')"/>
+                </td>
+                <td class="td_w_200"><label id="FlowScope" style="color:red"></label></td>
+            </tr>
+			<tr>
+				<td class="td_w_100">
+					<label id='flowUnit'></label>
+				</td>
+				<td class="td_w_50">
+					<div class="checkbox-black">
+						<input type="checkbox" value="1" id="flowUnitMb" name="flowUnitGroup" />
+						<label class="bglabel" for="flowUnitMb" onclick="selectFlowUnitMB()"></label>
+					</div>										
+				</td>
+				<td class="td_w_50">
+					<label id="flowUnitMbLab"></label>
+				</td>
+				<td class="td_w_50">
+					<div class="checkbox-black">
+						<input type="checkbox" value="0" id="flowUnitGb" name="flowUnitGroup" />
+						<label class="bglabel" for="flowUnitGb" onclick="selectFlowUnitGB()"></label>
+					</div>
+				</td>
+				<td class="td_w_200">
+					<label id="flowUnitGbLab"></label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" style="text-align:center;font-size:14px;">
+					<input type="button" class="button_setting ui-button Apply" id="applayPayment" value="" onclick="setPaymentInfo()"/>
+				</td>
+			</tr>	
+        </table>	
+		<div style="text-align:center;color:#ff0000;width:450px;">
+			<label id="setPaymentError"></label>
+		</div>
+    </div>
+    <!-- 流量设置 -->
+	<!-- 流量超额断网设置 -->
+	<div id="flowExcessSettingDlg" style="display: none;">
+		<table class="tableH60" style="width:550px;">
+			<tr>
+				<td class="td_w_130">
+					<label id="pExcessDisnetSwitch" class="lableClass"></label>
+				</td>
+				<td class="td_w_50">
+					<div class="checkbox-black">
+						<input type="checkbox" value="1" id="excessEn" name="excessGroup" />
+						<label class="bglabel" for="excessEn"></label>
+					</div>										
+				</td>
+				<td class="td_w_50">
+					<label id="ExcessEnable" class="Open"></label>
+				</td>
+				<td class="td_w_50">
+					<div class="checkbox-black">
+						<input type="checkbox" value="0" id="excessDis" name="excessGroup" />
+						<label class="bglabel" for="excessDis"></label>
+					</div>
+				</td>
+				<td class="td_w_50">
+					<label id="ExcessDisable" class="Close"></label>
+				</td>
+				<td class="td_w_200">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="td_w_130">
+					<label id="pFlowThouldValue"></label>
+				</td>
+				<td colspan="4" class="td_w_200">
+					<input type="text" size="10" id="setThouldValue" min="0" maxlength="4" class="input_text_green" onkeyup="value=value.replace(/[^\d]/g,'')"/>		
+				</td>
+				<td class="td_w_200"><label id="flowSetScope" style="color:red"></label></td>
+			</tr>		
+			<tr>
+				<td class="td_w_130"><label id="flowSetUnit"></label></td>
+				<td class="td_w_50">
+					<div class="checkbox-black">
+						<input type="checkbox" value="1" id="fluxUnitMb" name="fluxUnitGroup" />
+						<label class="bglabel" for="fluxUnitMb" onclick="selectFluxUnitMB()"></label>
+					</div>										
+				</td>
+				<td class="td_w_50">
+					<label id="flowUnitMB"></label>
+				</td>
+				<td class="td_w_50">
+					<div class="checkbox-black">
+						<input type="checkbox" value="0" id="fluxUnitGb" name="fluxUnitGroup" />
+						<label class="bglabel" for="fluxUnitGb" onclick="selectFluxUnitGB()"></label>
+					</div>
+				</td>
+				<td class="td_w_50">
+					<label id="flowUnitGB"></label>
+				</td>
+				<td class="td_w_200">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="text-align:center;font-size:14px;">
+					<input type="button" class="button_setting ui-button Apply" id="applyExcessSet" value="" onclick="postFlowExcessInfo()"/>
+				</td>
+			</tr>
+		</table>
+		<div style="text-align:center;color:#ff0000;width:450px;">
+			<label id="setFlowExcessError"></label>
+		</div>
+	</div>
+	<!-- 流量超额断网设置 -->
+	<!-- 短信发送对话框 -->
+    <div id="SmsSendDialog" style="display: none;">
+		<table style="width:480px;">
+			<thead>
+				<tr>
+					<th style="width:25%;">&nbsp;</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<label id="lBoxPeople" ></label>
+					</td>
+					<td>
+						<input type="text" id="textPeople" maxlength="20" class="input_text_green" onkeyup="checkPhoneNumber()"/>	
+					</td>
+				</tr>
+				<tr><td colspan="2">&nbsp;</td></tr>
+				<tr id="tr_send1">
+					<td>
+						<label id="lBoxDate"></label>
+					</td>
+					<td>
+						<label id="textDate"></label>
+					</td>
+				</tr>
+				<tr id="tr_send2"><td colspan="2">&nbsp;</td></tr>
+				<tr>
+					<td valign="top">
+						<label id="lContent"></label><br />
+						<label id="lSmsCount"></label>
+					</td>
+					<td>
+						<textarea onchange="textareaMaxProc();" onkeypress="textareaMaxProc();" onkeyup="textareaMaxProc();" onkeydown="textareaMaxProc();" id="SendContent" style="height:150px;overflow-y:auto;width:99%;border:2px solid #CFCDCF;background:#f4f4f4;color:#000;word-break:break-all;resize:none;" ></textarea>
+					</td>
+				</tr>
+				<tr><td colspan="2">&nbsp;</td></tr>
+				<tr>
+                    <td colspan="2" style="text-align: center;">
+                        <label id="lErrorSendSms"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;font-size:12px;">
+                    	<input type="button" class="button_setting ui-button" id="btnSmsSend" value="" onclick="sendSms('1')"/>
+                    	<input type="button" class="button_setting ui-button" id="btnSmsSave" value="" onclick="sendSms('2')"/>
+                    	<input type="button" class="button_setting ui-button" id="btnSmsReply" value="" onclick="replySms()"/>
+                    	<input type="button" class="button_setting ui-button" id="btnSmsTransmit" value="" onclick="transmitSms()"/>
+                       	<input type="button" class="button_setting ui-button" id="btnSmsCancel" value="" onclick="btnCancelSmsDialog()"/>
+                    </td>
+                </tr>
+			</tbody>
+		</table>
+    </div>
+    <!-- 短信发送对话框 -->
+    <!-- 草稿箱短信确认删除对话框 -->
+	<div id="smsDraftDelComfDialog" style="display: none; text-align: center; color:#91B232; font-weight:bold;">
+        <div style="padding:8px 0 15px 0;">
+            <label id="lDraftCoInfo" >&nbsp;</label>
+        </div>
+        <div style="font-size:12px;">
+            <input type='button' class="button_setting ui-button" id="comDraftYes" value="" onclick="btnYesDraftClickedComfirm()"/>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type='button' class="button_setting ui-button" id="comDraftNo" value="" onclick="btnNoDraftClickedComfirm()"/>
+        </div>
+    </div>
+    <!-- 草稿箱短信确认删除对话框 -->
+    <!-- 重新发送对话框 -->
+    <div id="ResendSmsDialog" style="display: none; text-align: center; color:#91B232; font-weight:bold;">
+        <div style="padding:8px 0 15px 0;">
+            <label id="lReInfo">&nbsp;</label>
+        </div>
+        <div style="font-size:12px;">
+        	<input type="button" class="button_setting ui-button" id="btnYes" value="" onclick="btnYesClickedResend()"/>
+        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        	<input type="button" class="button_setting ui-button" id="btnNo" value="" onclick="btnNoClickedResend()"/>
+        </div>
+    </div>
+    <!-- 重新发送对话框 -->
+    <!-- 发件箱短信确认删除对话框-->
+    <div id="smsOutDelComfDialog" style="display: none; text-align: center; color:#91B232; font-weight:bold;">
+        <div style="padding:8px 0 15px 0;">
+            <label id="lOutCoInfo">&nbsp;</label>
+        </div>
+        <div style="font-size:12px;">
+        	<input type='button' class="button_setting ui-button" id="comOutYes" value="" onclick="btnYesOutClickedComfirm()"/>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type='button' class="button_setting ui-button" id="comOutNo" value="" onclick="btnNoOutClickedComfirm()"/>
+        </div>
+    </div>
+    <!-- 发件箱短信确认删除对话框 -->
+    <!-- 收件箱短信确认删除对话框 -->
+    <div id="smsDelComfDialog" style="display: none; text-align: center; color:#91B232; font-weight:bold;">
+        <div style="padding:8px 0 15px 0;">
+            <label id="lCoInfo">&nbsp;</label>
+        </div>
+        <div style="font-size:12px;">
+        	<input type='button' class="button_setting ui-button" id="comYes" value="" onclick="btnYesClickedComfirm()"/>  
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type='button' class="button_setting ui-button" id="comNo" value="" onclick="btnNoClickedComfirm()"/>
+        </div>
+    </div>
+    <!-- 收件箱短信确认删除对话框 -->
+    <!-- 升级进度条对话框 -->
+    <div id="upgradlg" style="display: none">
+        <div>
+            <div id="dlgupgradewarn">
+            </div>
+        </div>
+    </div>
+    <!-- 升级进度条对话框 -->
+    <!-- 恢复出厂设置确认对话框 -->
+    <div id="MBConfirmFactory" style="display: none; text-align: center;">
+        <img src="images/warnning.png" alt="" />
+        <div class="hd1" style="text-align:center"><label id="lConfirmText1"></label></div>
+        <br />
+        <div style="text-align: center;font-size:12px;">
+        	<input type='button' class="button_setting ui-button" id="btnDlgOk" value="" onclick="confFactoryConfirmed()"/> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type='button' class="button_setting ui-button" id="btnDlgCancel" value="" onclick="cancelFactoryConfirmed()"/>      
+        </div>
+    </div>
+    <!-- 恢复出厂设置确认对话框 -->
+    <!-- 新增Profile对话框-->
+    <div id="MBAddNewProfile" style="display: none">
+        <table class="tableH40">
+            <tr>
+                <td class="td_w_150">
+                    <label id="lNewProfileName"></label>
+                </td>
+                <td class="td_w_250">
+                	<input type="text" size="30" id="txtNewProfileName" maxlength="15" class="input_text_green" onkeyup="value=value.replace(/[^\w\-\*\#\!\@\$\%\&\.\_]/g,'')"/>	
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label id="lNewAPN"></label>
+                </td>
+                <td>
+                	<input type="text" size="30" id="txtNewAPNName" maxlength="62" class="input_text_green" onkeyup="value=value.replace(/[^\w\-\*\#\!\@\$\%\&\.\_]/g,'')"/>
+                </td>
+            </tr>
+            <tr style="display:none">
+                <td>
+                    <label id="lNewCAccessNumber"></label>
+                </td>
+                <td>
+                	<input type="text" size="30" id="txtNewAccessNumber" maxlength="32" class="input_text_green" onkeyup="value=value.replace(/[^\w\-\*\#\!\@\$\%\&\.\_]/g,'')"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label id="lNewCUserName"></label>
+                </td>
+                <td>
+                    <input type="text" size="30" id="txtNewUserName" maxlength="32" class="input_text_green" onkeyup="value=value.replace(/[^\w\-\*\#\!\@\$\%\&\.\_]/g,'')"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label id="lNewCPassword"></label>
+                </td>
+                <td>
+                    <input type="text" size="30" id="txtNewPassword" maxlength="32" class="input_text_green" onkeyup="value=value.replace(/[^\w\-\*\#\!\@\$\%\&\.\_]/g,'')"/>
+                </td>
+            </tr>
+			<tr>
+                <td>
+                    <label id="lNewProtocol"></label>
+                </td>
+                <td>
+					<a class="btn-select" id="textNewProtocol"> 
+						<span class="cur-select"></span> 
+						<select> 
+							<option value="0" id="optNewPro0"></option> 
+							<option value="1" id="optNewPro1"></option> 
+							<option value="2" id="optNewPro2"></option> 
+							<option value="3" id="optNewPro3"></option> 
+						</select> 
+					</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label id="textProfileIpProtocol"></label>
+                </td>
+                <td>
+					<a class="btn-select" id="profileNewIpProtocol"> 
+						<span class="cur-select"></span> 
+						<select> 
+							<option value="0" id="optProfileNewIpType0"></option> 
+							<option value="2" id="optProfileNewIpType2"></option> 
+							<option value="1" id="optProfileNewIpType1" style="display:none;"></option> 
+						</select> 
+					</a>
+                </td>
+            </tr>
+			<tr id="trNewRoam" style = "display:none">
+				<td><label id="d3NewlabelId"></label></td>
+				<td>
+					<div class="checkbox-black" id="d3NewckeckId">
+						<input type="checkbox" id="d3NewchkUnmask"/>
+						<label class="bglabel" for="d3NewchkUnmask"></label>
+					</div>
+				</td>
+			</tr>
+            <tr>
+                <td colspan="2" style="text-align: center;font-size:12px;">
+               	 	<input type='button' class="button_setting ui-button" id="btnOk" onclick="btnOkClickedProfile()"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type='button' class="button_setting ui-button" id="btnCancel" onclick="btnCancelClickedProfile()"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- 新增Profile对话框-->
+    <!-- 新增 UPLMN 对话框 -->
+	<div id="AddUplmnDialog" style="display: none;">
+		<table class="tableH40">
+			<tr style="display:none">
+				<td class="td_w_150"><label id="indexlabel"></label></td>
+				<td><input type="text" size="30" id="vIndex" maxlength="10" disabled = "disabled"  class="input_text_green"/></td>
+			</tr>
+			<tr>
+				<td class="td_w_150"><label id="copsNumber"></label></td>
+				<td><input type="text" size="30" id="vIspNumber" maxlength="10"  class="input_text_green"/></td>
+			</tr>
+			<tr>
+				<td class="td_w_150"><label id="technology"></label></td>
+				<td>
+					<a class="btn-select" id="techOption"> 
+						<span class="cur-select"></span> 
+						<select> 
+							<option value="1" id="opt1"></option> 
+							<option value="2" id="opt2">GSM</option> 
+							<option value="3" id="opt3">UTRAN</option> 
+							<option value="4" id="opt4">LTE</option> 
+						</select> 
+					</a>
+				</td>
+			</tr>
+		</table>
+		<div style="width:400px;height:60px;text-align:center;color:#ff0000;">
+			<label id="lUplmnError"></label>
+		</div>
+		<div style="height:40px;text-align: center;font-size:12px;">	
+			<input type='button' class="button_setting ui-button" id="confirmAdd" onclick="ConfirmAddUplmn()"/>	
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type='button' class="button_setting ui-button" id="cancelAdd" onclick="CancelAddUplmn()"/>
+        </div>
+	</div>
+	<!-- 新增 UPLMN 对话框 -->
+	<!-- 修改UPLMN 对话框 -->
+	<div id="ModifyUplmnDialog" style="display: none;">
+		<table class="tableH40">
+		    <tr>
+				<td><label id="indexModify"></label></td>
+				<td><input type="text" size="30" id="pIndex" maxlength="10" disabled = "disabled" class="input_text_green"/></td>
+			</tr>
+			<tr>
+				<td><label id="modifyCopsNumber"></label></td>
+				<td><input type="text" size="30" id="pIspNumber" maxlength="10" class="input_text_green"/></td>
+			</tr>
+			<tr>
+				<td><label id="TechNology"></label></td>
+				<td>
+					<a class="btn-select" id="TechOption"> 
+						<span class="cur-select"></span> 
+						<select> 
+							<option value="1" id="Opt1"></option> 
+							<option value="2" id="Opt2">GSM</option> 
+							<option value="3" id="Opt3">UTRAN</option> 
+							<option value="4" id="Opt4">LTE</option> 
+						</select> 
+					</a>
+				</td>
+			</tr>
+		</table>
+		<div style="width:400px;height:60px;text-align:center;color:#ff0000;">
+			<label id="vUplmnError"></label>
+		</div>
+		<div style="height:40px;text-align: center;font-size:12px;">	
+			<input type='button' class="button_setting ui-button" id="confirmModify" onclick="ConfirmModifyUplmn()"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type='button' class="button_setting ui-button" id="cancelModify" onclick="CancelModifyUplmn()"/>
+        </div>
+	</div>
+	<!-- 修改UPLMN 对话框 -->
+	<!-- 手动搜索对话框 -->
+	<div id="SearchNetwork" style="display:none;">
+		<div style="overflow-y:scroll;width:440px;height:250px;background-color:#EBECE7;">
+		<table id="ManualTable" class="tb2" style="background-repeat:no-repeat;width:420px;">
+			<thead style="height:30px;">
+				<tr>
+					<th style="width:50%;"><label id="lCopsInfo"></label></th>
+					<th style="width:30%;"><label id="copsNumber1"></label></th>
+					<th style="width:20%;"><label id="state"></label></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		</div>
+		<br />
+		<div style="text-align:center;">
+			<label id="lManualError" class="error" ></label>
+		</div>
+		<div style="text-align: center;font-size:12px;">
+			<input type='button' class="button_setting ui-button" id="confirmManual" onclick="ConfirmManualNetwork()"/>		
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type='button' class="button_setting ui-button" id="cancelManual" onclick="CancelManualNetwork()"/>
+		</div>
+	</div>
+	<!-- 手动搜索对话框 -->
+	<!-- 添加IP地址过滤对话框 -->
+	<div id="AddIpFilterDialog" style="display: none">
+        <table class="tableH40" style="width:100%;">
+			<tr>
+                <td>
+                    <label id="ipNewWanAddr"></label>
+                </td>
+                <td>
+                    <input type="text" id="txtIpNewWanAddr" maxlength="15" onkeyup="value=value.replace(/[^\d\.]/g,'')" class="input_text_green"/>
+                </td>
+            </tr>
+			<tr>
+                <td>
+                    <label id="ipNewPortStart"></label>
+                </td>
+                <td>
+                    <input type="text" id="txtIpNewPortStart" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green"/>
+                </td>
+            </tr>
+			<tr>
+                <td>
+                    <label id="ipNewPortEnd"></label>
+                </td>
+                <td>
+                    <input type="text" id="txtIpNewPortEnd" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green"/>
+                </td>
+            </tr>
+			<tr>
+                <td>
+                    <label id="ipNewProto"></label>
+                </td>
+                <td>
+					<a class="btn-select" id="textIpNewProto"> 
+						<span class="cur-select"></span> 
+						<select> 
+							<option value="1" id="optTcp"></option> 
+							<option value="2" id="optUdp"></option> 
+							<option value="3" id="optAll"></option>  
+						</select> 
+					</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;color:#ff0000;">
+                    <label id="lErrorNewIp"></label>
+                </td>
+            </tr>				
+            <tr>
+                <td colspan="2" style="text-align: center;font-size:12px;">
+                	<input type='button' class="button_setting ui-button" id="btnIpOk" onclick="ConfirmAddIpFilter()"/>	
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type='button' class="button_setting ui-button" id="btnIpCancel" onclick="CancelAddIpFilter()"/>	
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- 添加MAC地址过滤对话框 -->
+	<div id="AddMacFilterDialog" style="display: none">
+        <table class="tableH40" style="width:100%;">
+			<tr>
+                <td>
+                    <label id="macNewAddr"></label>
+                </td>
+                <td>
+                    <input type="text" id="txtMacNewAddr" maxlength="17" onkeyup="value=value.replace(/[^\w\:]/g,'')" class="input_text_green"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;color:#ff0000;">
+                    <label id="lErrorNewMac"></label>
+                </td>
+            </tr>		
+            <tr>
+                <td colspan="2" style="text-align: center;font-size:12px;">
+                	<input type='button' class="button_setting ui-button" id="btnMacOk" onclick="ConfirmAddMacFilter()"/>	
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type='button' class="button_setting ui-button" id="btnMacCancel" onclick="CancelAddMacFilter()"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- 添加MAC地址过滤对话框 -->
+    <!-- 添加DNS地址过滤对话框 -->
+	<div id="AddDnsFilterDialog" style="display: none">
+        <table class="tableH40" style="width:100%;">
+			<tr>
+                <td>
+                    <label id="dnsNewAddr"></label>
+                </td>
+                <td>
+                    <input type="text" id="txtDnsNewAddr" maxlength="63"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;color:#ff0000;">
+                    <label id="lErrorNewDns"></label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;font-size:12px;">
+                	<input type='button' class="button_setting ui-button" id="btnDnsOk" onclick="ConfirmAddDnsFilter()"/>	
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type='button' class="button_setting ui-button" id="btnDnsCancel" onclick="CancelAddDnsFilter()"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- 添加DNS地址过滤对话框 -->
+    <!-- USSD消息框 -->
+	<div id="ussddial" style="display: none">
+        <table style="width:100%;">
+			<tr>
+                <td>
+                   <textarea type="textarea" id="displayussdbusiness" class="ussd-textarea" readonly="readonly"></textarea>
+                </td>
+            </tr>
+            <tr><td><input type="text" id="newUssdCode" style="width:400px;border-radius:10px;height:25px;padding-left:10px;" placeholder="Please enter USSD Number,then Send"/></td></tr>
+            <tr>
+                <td style="text-align: center;font-size:12px;">
+                	<input type='button' class="button_setting ui-button" id="btnUSSDSend" onclick="SendAnswerBusiness()"/>	
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type='button' class="button_setting ui-button" id="btnUSSDCancel" onclick="close_USSD_dial()"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- USSD消息框 -->
+	<!-- Update My Master Number消息框 -->
+	<div id="updateMasterNumberDial" style="display: none;">
+        <table class="tableH40" style="width:100%;">
+        	<tr>
+                <td>
+                   <label id="lNewMasterNumber">New Master Number</label>
+                </td>
+                <td>
+                	 <input type="text" id="lNewMasterNumberText" placeholder="031XXXXXXXX"  onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green"/>
+                </td>
+            </tr>
+			<tr>
+                <td>
+                   <label id="lMBBNumber">MBB Number</label>
+                </td>
+                <td>
+                	 <input type="text" id="lMBBNumberText" placeholder="031XXXXXXXX" onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green"/>
+                </td>
+            </tr>
+            <tr >
+            	<td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;font-size:12px;">
+                    <input type='button' class="button_setting ui-button" id="btnUpdateMBBMasterNum" onclick="UpdateMBBMasterNum()"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type='button' class="button_setting ui-button" id="btnCancleMBBMasterNum" onclick="close_UpdateMasterNumberDial()"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- Update My Master Number消息框 -->
+    <!-- 短信提醒对话框 -->
+    <div id="smsTipBox" style="display: none">
+        <div id="smsTipBoxContent">
+        </div>
+    </div>
+    <!-- 短信提醒对话框 -->
+	<!-- 对话框弹出层代码 -->
+
+	<!-- login -->
+	<div class="login" id="login">
+		<div class="language_setting">
+			<label id="llanguagetitle"></label>
+			<a onclick="setLanguage('cn')" id="ChinaLan" class="language_pos" href="javascript:void(0)">&nbsp;中文&nbsp;</a>
+            <a onclick="setLanguage('en')" id="EnglishLan"  class="language_pos" href="javascript:void(0)">&nbsp;English&nbsp;</a>
+            <a onclick="setLanguage('tw')" id="TraditionalLan"  class="language_pos" href="javascript:void(0)">&nbsp;繁體&nbsp;</a>
+            <a onclick="setLanguage('th')" id="ThaiLan" class="language_pos" href="javascript:void(0)">&nbsp;ภาษาไทย&nbsp;</a>
+		</div>
+	    <div class="message"><label id="logintip"></label></div>
+	    <div id="darkbannerwrap"></div>  
+	    <form method="post">
+			<input name="action" value="login" type="hidden">
+			<input name="username" type="text" id="wifi_username" placeholder="">
+			<hr class="hr15">
+			<input name="password" type="password" id="wifi_password" placeholder="">
+			<hr class="hr15">
+			<input value="" type="button" id="btnLogin" onclick="onLogin()">
+			<hr class="hr20">
+		</form>
+		<div class="loginErrDIV">
+			<label id="loginErr"></label>
+		</div>
+	</div>
+	<!-- login -->
+	<!--app 下载tips -->
+	<div id="divLoginPageAppDownloadTip">
+		<div id="divLoginAppHeadRow" class ="divCssLoginAppHeadRow">
+			<div id="divLoginAppDownloadTipClose" class="divCssLoginAppDownloadTipClose">
+				<input id="AppDownloadTipClose" class="AppDownloadTipClose" type="button" onclick='btnCloseAppDownloadTip()'/>
+			</div>
+		</div>
+		<div onmouseover="this.style.cursor='pointer'" onclick="document.location='http://114.215.173.249/wifihotspot/getApp'">		
+			<div  class="divCssLoginPageAppDownloadCenter">
+				<div class ="divCssLoginApp4gLogo">
+					<img id="img4gLogo" src="images/app_ad/app_4g_logo.png" />
+				</div>
+				<div class="divCssLoginAppDownloadAdText">
+					<div>
+						<label id="loginAppMifiNameLabel" class="loginAppMifiNameLabel"></label>
+					</div>
+					<div>
+						<label id="loginAppDownlaodDescriptionLabel" class="loginAppDownlaodDescriptionLabel"></label>
+					</div>
+				</div>
+				<div class="divCssLoginAppDownloadLogo">
+					<img id="imgDownloadLogo" src="images/app_ad/app_download_logo.png" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--app 下载tips -->
+	<div style="width:100%;padding:0px;margin:0 0;">
+		<table style="width:100%;border-spacing:0px;padding:0px;">
+			<tr>
+				<td>
+					<!-- 广告浮动层左边 -->
+					<div id="index_float_left" class="index_float_left" onclick="openLeftBanber()">
+						<img src="images/benners/benners-01.jpg" alt="banber" id="index_float_left_img"/>
+					</div>
+					<!-- 广告浮动层左边 -->
+				</td>
+				<td style="display:block;" valign="top">
+					<!-- content -->
+					<div class="content" id="content">
+						<!-- header -->
+						<div class="header-content">
+							<div class="header-left" id="header-left">
+								<img src="images/zong-logo.png" alt="logo" class="logo-image"/>
+							</div>
+							<div class="header-right" id="header-right">
+								<div class="header-right-lable">
+									<a id="help" href="javascript:void(0)"  onclick="getMainHelp()"></a> | <a id="logout" href="javascript:void(0)" onclick="onLogout()"></a>
+								</div>
+								<div class="header-right-image">
+									<table style="width:200px;">
+										<tr>
+											<td>
+												<img src="images/signals/Signal-0.png" alt="Signal" class="top_signal" id="signal" title="Signal"/>
+												<img src="images/signals/Signal-5.png" alt="Signal" class="top_signal" style="display:none;" id="signal-5" title="Signal"/>
+											</td>
+											<td>
+												<img src="images/signals/cellular_network-1.png" title="Network" alt="Network" class="top_network" id="wifi"/>
+											</td>
+											<td>
+												<img src="images/signals/TopWifi-1.png" title="WiFi" alt="WiFi" id="topwifi" class="top_wifi"/>
+											</td>
+											<td>
+												<div class="topsmsnum" onclick="openSMSMenu()"><label id="topunreadsmsnum" class="topunreadsmsnum" title="SMS"></label></div>
+											</td>
+											<td>
+												<img src="images/battery/battery5.png" alt="Battery" class="top_battry" id="battery" title="Battery"/>
+											</td>
+										</tr>
+									</table>
+								</div>
+								
+							</div>
+						</div>
+						<!-- header -->
+						<!-- menu -->	
+						<div class="menu" id="menu">
+							<table class="menu-table" id="menu-table">
+								<tr>
+									<td style="width:50px;" class="nav-selected">
+										<a style="width:100%;display:block;" href="javascript:void(0)" onclick="openMenu(1,5)" id="nav-link-1" ></a>
+									</td>
+									<td style="width:60px;" class="nav">
+										<a style="width:100%;display:block;" href="javascript:void(0)" onclick="openMenu(2,5)" id="nav-link-2" ></a>
+									</td>
+									<td style="width:50px;" class="nav">
+										<a style="width:100%;display:block;" href="javascript:void(0)" onclick="openMenu(3,5)" id="nav-link-3"></a>
+									</td>
+									<td style="width:100px;" class="nav">
+										<a style="width:100%;display:block;" href="javascript:void(0)" onclick="openMenu(4,5)" id="nav-link-4"></a>
+									</td>
+									<td style="width:60px" class="nav">
+										<a style="width:100%;display:block;" href="javascript:void(0)" onclick="openMenu(5,5)" id="nav-link-5"></a>
+									</td>
+									<td style="width:80px" class="nav">
+										<a style="width:100%;display:block;" href="javascript:void(0)" onclick="openMBBWebSite()" id="nav-link-6"></a>
+									</td>
+									<td style="width:70px" class="nav">
+										<a style="width:100%;display:block;" href="javascript:void(0)" onclick="openMBBFAQ()" id="nav-link-7"></a>
+									</td>
+									<td style="width:70px" class="nav">
+										<a style="width:100%;display:block;" href="javascript:void(0)" onclick="openMBBFeedback()" id="nav-link-8"></a>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<!-- menu -->
+						<!-- main -->
+						<div class="main" id="main">
+							<!-- 首页 -->
+							<div id="index" class="index">
+								<div class="main-left" id="main-left">
+									<div>
+										<img src="images/signals/max-signal-0.png" alt="Signal" title="Signal" class="signal-max-image" id="max-signal"/>		
+										<img src="images/signals/max-signal-5.png" alt="Signal" title="Signal" class="signal-max-image" style="display:none;" id="max-signal-5"/>			
+									</div>
+									<div class="main-connected-type">
+										<label id="networkTypeLabel"></label>
+										<label id="USSDnetworkTypeLabel" style="display:none;">3G</label>
+									</div>
+									<div class="main-connected-lable">
+										<label id="wlanStatus"></label>
+										<label id="SimStatus" class="hide_css"></label>
+									</div>
+									<div class="main-connectionsettings-lable">
+										<label id="lConnectionSettings"></label>
+									</div>
+									<div class="main-connectionsettings-images">
+										<img src="images/signals/shutdown.png" title="Shutdown" alt="Shutdown" id="RebootBtn" onclick="shutdownDevice()"/>&nbsp;&nbsp;
+										<img src="images/signals/Cellular-1.png" title="Network" alt="Network" id="CellularBtn" onclick="CellularED()"/>&nbsp;&nbsp;
+										<img src="images/signals/Wifi-1.png" title="WiFi" alt="WiFi" id="WifiBtn" onclick="wifiStatusSet()"/>
+									</div>
+									<div class="main-nekworkmodel-select">
+										<a class="btn-select" id="network_type_select"> 
+											<span class="cur-select"></span> 
+											<select> 
+												<option value="0" id="IoptMode0"></option> 
+												<option value="1" id="IoptMode1"></option> 
+												<option value="2" id="IoptMode2"></option> 
+												<option value="3" id="IoptMode3"></option> 
+												<option value="4" id="IoptMode4"></option> 
+												<option value="5" id="IoptMode5"></option> 
+												<option value="6" id="IoptMode6"></option>
+												<option value="20" id="IoptMode20"></option>
+												<option value="21" id="IoptMode21"></option>
+												<option value="22" id="IoptMode22"></option>
+												<option value="23" id="IoptMode23"></option>
+												<option value="24" id="IoptMode24"></option>
+												<option value="25" id="IoptMode25"></option> 
+											</select> 
+										</a>
+									</div>
+									<div class="main-usage-lable">
+										<label id="lCurrentUsage"></label>
+									</div>
+									<div class="main-usage-data">
+										<table>
+											<tr>
+												<td><label id="lDownFlux"></label></td><td><label id="vHistDownFluxIndex"></label></td>
+											</tr>
+											<tr>
+												<td><label id="lUpFlux"></label></td><td><label id="vHistUpFluxIndex"></label></td>
+											</tr>
+											<tr>
+												<td><label id="lAllTime"></label></td><td><label id="vHistAllTimeIndex"></label></td>
+											</tr>
+										</table>
+									</div>
+									<div class="main-wlan-lable">
+										<label id="lWLANStatus"></label>
+									</div>
+									<div class="main-wlan-data">
+										<table>
+											<tr>
+												<td><label id="lwlanstatusSwitch"></label></td>
+												<td><label id="lwlanStatus"></label></td>
+											</tr>
+											<tr>
+											<td><label id="lwlansconnectednum"></label></td>
+											<td><label id="vCurrentClientIndex"></label></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="main-right" id="main-right">
+									<div class="main-right-services">
+										<table class="TB_WD_100">
+											<tr class="main-right-services-tr-1">
+												<td rowspan="2" style="text-align:left;"><label class="main-right-services-lable" id="lservices"></label></td>
+												<td><img src="images/service/service_1.png" alt="service" onclick="CheckBanlance()"/></td>
+												<td><img src="images/service/service_2.png" alt="service" onclick="sendSMSRecharge(1,'4','92102')"/></td>
+												<td><img src="images/service/service_3.png" alt="service" onclick="open_UpdateMasterNumberDial()"/></td>
+												<td><img src="images/service/service_4.png" alt="service" onclick="ShowMyZongMBBNumber()"/></td>
+											</tr>
+											<tr class="main-right-table-td-center">
+												<td>Check Balance</td>
+												<td>Usage</td>
+												<td>Update My Master Number</td>
+												<td>Show My MBB Number</td>							
+											</tr>
+										</table>
+									</div>
+									<div class="main-right-bundles">
+										<table class="TB_WD_100">
+											<tr class="main-right-bundles-tr-1">
+												<td rowspan="2" style="text-align:left;"><label class="main-right-bundles-lable" id="lbundles"/></label></td>
+												<td><img src="images/bundles/bundles_1.png" alt="service" onclick="sendSMSRecharge(1,'Sub mbb12','6234')"/></td>
+												<td><img src="images/bundles/bundles_2.png" alt="service" onclick="sendSMSRecharge(1,'Sub mbb25','6234')"/></td>
+												<td><img src="images/bundles/bundles_1.png" alt="service" onclick="sendSMSRecharge(1,'Sub mbb 310','6234')"/></td>
+												<td><img src="images/bundles/bundles_3.png" alt="service" onclick="sendSMSRecharge(1,'Sub mbb50','6234')"/></td>
+											</tr>
+											<tr class="main-right-table-td-center">
+												<td>PKR 1,500</td>
+												<td>PKR 2,500</td>
+												<td>3 Month PKR 4,000</td>
+												<td>PKR 5,000</td>							
+											</tr>
+										</table>
+									</div>
+									<div class="main-right-addons" style="display:none">
+										<table class="TB_WD_100">
+											<tr class="main-right-addons-tr-1">
+												<td rowspan="2" style="text-align:left;display:none;"><label class="main-right-addons-lable" id="laddons"></label></td>
+												<td><img style="display:none;" src="images/addons/addons-5gb.png" alt="service" onclick="sendSMSRecharge(1,'Sub mbbadd5','6234')"/></td>
+												<td><img style="display:none;" src="images/addons/addons-gno.png" alt="service" onclick="sendSMSRecharge(1,'mbbgno','6234')"/></td>
+												<td><img style="display:none;" src="images/addons/addons-2gb.png" alt="service" onclick="sendSMSRecharge(1,'Sub mbbadd2','6234')"/></td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr class="main-right-table-td-center">
+												<td><label style="display:none;">PKR 450</label></td>
+												<td><label style="display:none;">PKR 200</label></td>
+												<td><label style="display:none;">PKR 250</label></td>
+												<td>&nbsp;</td>						
+											</tr>
+										</table>
+									</div>
+									<div class="main-right-recharge">
+										<table class="TB_WD_100">
+											<tr class="main-right-recharge-tr-1">
+												<td><label class="main-right-recharge-lable">RECHARGE</label></td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr class="main-right-recharge-tr-2">
+												<td colspan="5">
+													<textarea type="textarea" id="ussdTextCode" class="recharge-textarea" placeholder=" Please enter Voucher or USSD Number, then Send" ></textarea>
+													
+												</td>						
+											</tr>
+											<tr>
+												<td colspan="3">
+													<input id="btnUssdSend" type="button" name="voucher-button" class="recharge-button" value="" onclick="SendUssdBusiness()"/>
+												</td>
+												<td>&nbsp;</td>
+												<td style="vertical-align:bottom;">
+													<input type="button" id="online-recharge" class="online-recharge-button" value="Online Recharge" onclick="openOnlineRecharge()"/>
+												</td>	
+											</tr>
+											<tr>
+												<td colspan="5" class="recharge-tip">
+													For more information on MBB bundles please enter *6363# in the above space and press send <br/>
+													 If you want to change WIFI password,please click <a href="javascript:void(0)" style="text-decoration:none;color: #9dc852;" onclick="JumpToWaln()">here</a>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- 首页 -->
+							<!-- 流量统计 -->
+							<div id="statistics" class="statistics">
+								<div class="statistics_flow">
+									<table class="TB_WD_100">
+										<tr>
+											<td style="width:50%;text-align:left;">
+												<label class="statistics_flow_lable" id="flux"></label>
+											</td>
+											<td style="width:50%;text-align:right;">
+												<input id="clearRecord" type="button" class="button_setting ui-button" value="" onclick="clearRecord()"/>
+											</td>
+										</tr>
+									</table>	
+									<hr class="split_1000_hr"/>
+								</div>
+								<div class="statistics_setting">
+									<label class="statistics_flow_tip" id="PaymentNote"></label>			
+								</div>
+								<div class="statistics_flow_content">
+									<table class="statistics_flow_table">
+										<tr>
+											<th><label id="flowType"></label></th>
+											<th><label id="currentRecord"></label></th>
+											<th><label id="histRecord"></label></th>
+										</tr>
+										<tr>
+											<td><label id="kUpFlux"></label></td>
+											<td><label id="vUpFlux"></label></td>
+											<td><label id="vHistUpFlux"></label></td>	
+										</tr>
+										<tr>
+											<td><label id="kDownFlux"></label></td>
+											<td><label id="vDownFlux"></label></td>
+											<td><label id="vHistDownFlux"></label></td>					
+										</tr>
+										<tr>
+											<td><label id="kAllUseFlux"></label></td>
+											<td><label id="vAllFluxCurrent"></label></td>
+											<td><label id="vAllFluxHistory"></label></td>					
+										</tr>
+										<tr>
+											<td><label id="kAllTime"></label></td>
+				                            <td><label id="vAllTime"></label></td>
+				                            <td><label id="vHistAllTime"></label></td>					
+										</tr>
+									</table>
+								</div>
+								<div class="statistics_flow">
+									<table class="TB_WD_100">
+										<tr>
+											<td style="width:50%;text-align:left;">
+												<label class="statistics_flow_lable" id="payment"></label>
+											</td>
+											<td style="width:50%;text-align:right;">
+												<input id="paymentSetting" type="button" class="button_setting ui-button" value="" onclick="SetPaymentSettingDlg();"/>
+											</td>
+										</tr>
+									</table>	
+									<hr class="split_1000_hr"/>
+								</div>
+								<div class="statistics_flow_setting_content">
+									<table class="statistics_flow_setting_table">
+										<tr>
+											<td class="td_w_100"><label id="VmonthFlow"></label></td>
+											<td class="td_w_100"><label id="setMonthFlowId"></label></td>
+											<td class="td_w_100"><label id="paymentDay"></label></td>	
+											<td class="td_w_100"><label id="setPaymentDayId"></label></td>						
+										</tr>
+									</table>
+									<div class="flow_setting_tip"><label id="checkMonthFlowError"></label></div>
+								</div>
+								<div class="statistics_flow" id="flowexcessLabel">
+									<table class="TB_WD_100">
+										<tr>
+											<td style="width:50%;text-align:left;">
+												<label class="statistics_flow_lable" id="flowExcessSet"></label>
+											</td>
+											<td style="width:50%;text-align:right;">
+												<input id="excessPaymentSetting" type="button" class="button_setting ui-button" value="" onclick="SetFlowExcessSettingDlg()"/>
+											</td>
+										</tr>
+									</table>
+									<hr class="split_1000_hr"/>
+								</div>
+								<div class="statistics_flow_setting_content" id="flowexcessContent">
+									<table class="statistics_flow_setting_table">
+										<tr>
+											<td class="td_w_200"><label id="ExcessDisnetSwitch"></label></td>
+											<td class="td_w_100"><label id="setExcessDisnetSwitchId"></label></td>
+											<td class="td_w_200"><label id="FlowThouldValue"></label></td>	
+											<td class="td_w_100"><label id="setFlowThouldValueId"></label></td>							
+										</tr>
+									</table>
+								</div>
+								<div class="statistics_flow">
+									<label class="statistics_flow_lable" id="wifiClient"></label>
+									<hr class="split_1000_hr"/>
+								</div>
+								<div class="tableClientDiv">
+									<table class="tableClientTable" id="tableClient">
+										<thead>
+											<tr>
+												<th><label id="hostName"></label></th>
+												<th><label id="ipAddress"></label></th>
+												<th><label id="macAddress"></label></th>
+												<th><label id="networTime"></label></th>
+												<th><label id="connType"></label></th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<!-- 流量统计 -->
+							<!-- 短信 -->
+							<div id="inbox" class="inbox">
+								<div class="inbox_icon_div">
+									<table class="inbox_icon_table">
+										<tr>
+											<td><a onclick="open_sms_in()" href="javascript:void(0)"><img id="sms_in_img" src="images/sms/sms_in_active.png" alt="img"/></a></td>
+											<td><a onclick="open_sms_out()" href="javascript:void(0)"><img id="sms_out_img" src="images/sms/sms_out.png" alt="img"/></a></td>
+											<td><a onclick="open_sms_draft()" href="javascript:void(0)"><img id="sms_draft_img" src="images/sms/sms_draft.png" alt="img"/></a></td>
+											<td><a onclick="open_sms_setting()" href="javascript:void(0)"><img id="sms_setting_img" src="images/sms/sms_setting.png" alt="img"/></a></td>
+										</tr>
+										<tr>
+											<td><a onclick="open_sms_in()" href="javascript:void(0)"><label class="linbox"></label></a></td>
+											<td><a onclick="open_sms_out()" href="javascript:void(0)"><label class="loutbox"></label></a></td>
+											<td><a onclick="open_sms_draft()" href="javascript:void(0)"><label class="ldraft"></label></a></td>
+											<td><a onclick="open_sms_setting()" href="javascript:void(0)"><label class="lSmsSet"></label></a></td>
+										</tr>
+									</table>
+								</div>
+								<div class="sms_tab">
+									<!-- sms in-->
+									<div id="sms_tab_in" class="sms_tab_content_in">
+										<div class="sms_tab_title" id="sms_in_label">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:50%;text-align:left;">
+														<label class="linbox"></label>
+														<label id="smsNum"></label>
+													</td>
+													<td style="width:50%;text-align:right;">
+														<input type="button" class="button_setting ui-button btnAdd" value="" onclick="newSms()"/>
+														<input type="button" class="button_setting ui-button btnDelete" value="" onclick="smsDelComfirm()"/>
+														<input type="button" class="button_setting ui-button btnRefresh" value="" onclick="refreshSMSList()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<table class="sms_tab_table" id="tableSMS">
+											<thead>
+												<tr>
+													<th class="sms_tab_table_status" id="chklist">
+														<input type="checkbox" style="display: none;align:center" id="selectAll" >
+														<label class="checkbox" id="selectAllCheckBox" onclick="selectAllCheckBox()"></label>
+													</th>
+													<th class="sms_tab_table_type"><label class="lstate"></label></th>
+													<th class="sms_tab_table_user"><label id="lBoxNumFrom"></label></th>
+													<th class="sms_tab_table_content"><label class="lContent"></label></th>
+													<th class="sms_tab_table_date"><label class="lBoxDate"></label></th>
+												</tr>
+											</thead>
+											<tbody>									
+											</tbody>
+										</table>
+										<div class="sms_tab_page" id="sms_in_page">
+											<img class="sms_page" id="sms_in_first_page" src="images/sms/first_page.png" onclick="toFirstPage()"/>
+											<img class="sms_page" id="sms_in_up_page" src="images/sms/up_page.png" onclick="toUpPage()"/>
+											<img class="sms_page" id="sms_in_next_page" src="images/sms/next_page.png" onclick="toNextPage()"/>
+											<img class="sms_page" id="sms_in_last_page" src="images/sms/last_page.png" onclick="toLastPage()"/>
+											<label style="vertical-align: bottom;line-height:40px;" id="vCurrentPage"></label>
+										</div>
+										<div class="formBox">
+				                    		<label id="LabelSimChose"></label>
+				                		</div>
+									</div>
+									<!-- sms in -->
+									<!-- sms out -->
+									<div id="sms_tab_out" class="sms_tab_content_out">
+										<div class="sms_tab_title" id="sms_out_label">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:50%;text-align:left;">
+														<label class="loutbox"></label>
+														<label id="smsOutNum"></label>
+													</td>
+													<td style="width:50%;text-align:right;">
+														<input type="button" class="button_setting ui-button btnAdd" value="" onclick="newSms()"/>
+														<input type="button" class="button_setting ui-button btnDelete" value="" onclick="smsOutDelComfirm()"/>
+														<input type="button" class="button_setting ui-button btnRefresh" value="" onclick="refreshOutSMSList()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<table class="sms_tab_table" id="tableOutSMS">
+											<thead>
+												<tr>
+													<th class="sms_tab_table_status" id="chklistOut">
+														<input type="checkbox" style="display: none;align:center" id="selectOutAll" >
+														<label class="checkbox" id="selectOutAllCheckBox" onclick="selectOutAllCheckBox()"></label>
+													</th>
+													<th class="sms_tab_table_user"><label id="lBoxNumTo"></label></th>
+													<th class="sms_tab_table_content"><label class="lContent"></label></th>
+													<th class="sms_tab_table_date"><label class="lBoxDate"></label></th>
+												</tr>
+											</thead>
+											<tbody>									
+											</tbody>
+										</table>
+										<div class="sms_tab_page" id="sms_out_page">
+											<img class="sms_page" id="sms_out_first_page" src="images/sms/first_page.png" onclick="toFirstOutPage()"/>
+											<img class="sms_page" id="sms_out_up_page" src="images/sms/up_page.png" onclick="toUpOutPage()"/>
+											<img class="sms_page" id="sms_out_next_page" src="images/sms/next_page.png" onclick="toNextOutPage()"/>
+											<img class="sms_page" id="sms_out_last_page" src="images/sms/last_page.png" onclick="toLastOutPage()"/>
+											<label style="vertical-align: bottom;line-height:40px;" id="vCurrentOutPage"></label>
+										</div>
+										<div class="formBox">
+						                    <label id="lErrorOut"></label>
+						                </div>
+									</div>
+									<!-- sms out -->
+									<!-- sms draft-->
+									<div id="sms_tab_draft" class="sms_tab_content_draft">
+										<div class="sms_tab_title" id="sms_draft_label">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:50%;text-align:left;">
+														<label class="ldraft"></label>
+														<label id="smsDraftNum"></label>
+													</td>
+													<td style="width:50%;text-align:right;">
+														<input type="button" class="button_setting ui-button btnAdd" id="btnDraftNew" value="" onclick="newSms()"/>
+														<input type="button" class="button_setting ui-button btnDelete" id="btnDraftDelete" value="" onclick="smsDraftDelComfirm()"/>
+														<input type="button" class="button_setting ui-button btnRefresh" id="btnDraftRefresh" value="" onclick="refreshDraftSMSList()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<table class="sms_tab_table" id="tableDraftSMS">
+											<thead>
+												<tr>
+													<th class="sms_tab_table_status" id="chklistDraft">	
+														<input type="checkbox" style="display: none;align:center" id="selectDraftAll" >
+														<label class="checkbox" id="selectDraftAllCheckBox" onclick="selectDraftAllCheckBox()"></label>
+													</th>
+													<th class="sms_tab_table_user"><label id="lDraftBoxNumTo"></label></th>
+													<th class="sms_tab_table_content"><label class="lContent"></label></th>
+													<th class="sms_tab_table_date"><label class="lBoxDate"></label></th>
+												</tr>
+											</thead>
+											<tbody>									
+											</tbody>
+										</table>
+										<div class="sms_tab_page" id="sms_draft_page">
+											<img class="sms_page" id="sms_draft_first_page" src="images/sms/first_page.png" onclick="toFirstDraftPage()"/>
+											<img class="sms_page" id="sms_draft_up_page" src="images/sms/up_page.png" onclick="toUpDraftPage()"/>
+											<img class="sms_page" id="sms_draft_next_page" src="images/sms/next_page.png" onclick="toNextDraftPage()"/>
+											<img class="sms_page" id="sms_draft_last_page" src="images/sms/last_page.png" onclick="toLastDraftPage()"/>
+											<label style="vertical-align: bottom;line-height:40px;" id="vCurrentDraftPage"></label>
+										</div>
+										<div class="formBox">
+				                    		<label id="lErrorDraft"></label>
+				                		</div>
+									</div>
+									<!-- sms draft-->
+									<!-- sms setting -->
+									<div id="sms_tab_setting" class="sms_tab_content_setting">
+										<div class="sms_tab_title" id="sms_setting_label">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:50%;text-align:left;">
+														<label class="lSmsSet"></label>
+													</td>
+													<td style="width:50%;text-align:right;">
+														<input id="btnSmsSetApply" type="button" class="button_setting ui-button" value="" onclick="PostSmsSet()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<table class="sms_setting_table" id="sms_setting_table">
+											<tr>
+												<td><label id="lSmsReport"></label></td>
+												<td>
+													<div class="checkboxs-green">
+														<input type="checkbox" value="1" id="sms_news_status_open" name="sms_news_status" />
+														<label class="bglabel" for="sms_news_status_open"></label>
+													</div>
+												</td>
+												<td>
+													<label class="Open"></label>
+												</td>
+												<td>
+													<div class="checkboxs-green">
+														<input type="checkbox" value="0" id="sms_news_status_close" name="sms_news_status" />
+														<label class="bglabel" for="sms_news_status_close"></label>
+													</div>
+												</td>
+												<td>
+													<label class="Close"></label>
+												</td>
+											</tr>
+										</table>
+										<div class="formBox">
+							            	<label id='lSmsSetError' ></label>
+						            	</div>
+									</div>
+									<!-- sms setting -->
+								</div>
+							</div>
+							<!-- 短信 -->
+							<!-- 软件升级 -->
+							<div id="upgrade" class="upgrade">
+								<!-- 在线升级 -->
+				                <div id="divMP">
+				                    <form action="192_168_8_default.html#" method="post">
+					                    <table style="width:100%">
+					                        <thead>
+					                            <tr>
+					                                <th colspan="2">
+					                                	<div class="upgrade_lable_div">
+															<label class="upgrade_lable" id="loadversiontitle"></label>
+														</div>
+					                                </th>
+					                            </tr>
+					                        </thead>
+					                        <tbody>
+					                            <tr>
+					                            	<td colspan="2">
+					                            		<hr class="split_1000_hr"/>
+					                            	</td>
+					                            </tr>                         
+					                            <tr>
+					                            	<td colspan="2">
+					                            		<label id="tipVersion"></label>
+					                            	</td>
+					                            </tr>
+					                            <tr>
+					                                <td class="odiv" style="width: 550px; display: none">
+					                                    <a href="192_168_8_default.html" target="blank" id="pathVersion"></a>
+					                                </td>
+					                                <td>
+					                                	<input type='button' class="button_setting ui-button" id="divLoadNewVersion" style="display: none;" onclick="onLoadNewVersion()"/> 
+					                                </td>
+					                            </tr>
+					                            <tr>
+					                                <td colspan="2">
+					                                    <div id="tipUpgradeInfo" style="height:150px;overflow-y:auto;width:100%;border:2px solid #CFCDCF;background:#f4f4f4;word-break:break-all;">
+					                                    </div>
+					                                </td>
+					                            </tr>
+					                            <tr>
+					                                <td colspan="2">&nbsp;</td>
+					                            </tr>
+					                        </tbody>
+					                    </table>
+				                    </form>
+				                    <div>
+				                        <div id='divUpgradeBtn' style="display: none;">
+				                        	<input type='button' class="button_setting ui-button" id="btUpgradeMP"  onclick="divOnlineUpgradeAction()"/> 
+				                        </div>
+										<div style="display:none;">
+											<input type='button' class="button_setting ui-button" id="divUpgradeCancel" style="float:left;display:none;" onclick="onUpgradeCancel()"/>
+				                        </div>  
+										<input type='button' class="button_setting ui-button" id="divUpgradeApply" style="float:left;display:none;"  onclick="onUpgradeApply()"/>                   
+				                        <div id="progressbar" style="text-align:left;display: none;margin-left: 20px; margin-top: 5px;">
+				                        </div>
+				                    </div>
+				                </div>
+				                <!-- 在线升级 -->
+				                <!-- 本地升级 -->
+				                <div id="divOP">
+				                    <table id="handUpdateTitle" style="width:100%">
+				                        <thead>
+				                            <tr>
+				                                <th colspan="2">
+					                                <div class="upgrade_lable_div">
+														<label class="upgrade_lable" id="applicationversiontitle"></label>
+													</div>
+				                                </th>
+				                            </tr>
+				                        </thead>
+				                        <tbody>
+				                            <tr>
+				                            	<td colspan="2">
+				                            		<hr class="split_1000_hr"/>
+				                            	</td>
+				                            </tr>
+				                        </tbody>
+				                    </table>
+				                    <iframe style="display:none" name="ifm"></iframe>
+				                    <form target="ifm" enctype="multipart/form-data" id="uploadFileForm" method="post">
+				                        <div>
+				                            <table>
+				                                <tr style="height:40px;">
+				                                    <td>
+														<div class="file-box" id="divFileUpdate">
+															<input type="text" id="uptextfield" class="input_text_green"/>
+				                                            <input type="button" class="button_setting ui-button" id="upFileSel" />
+				                                            <input type="file" name="fileField" class="file" id="fileField" onchange="document.getElementById('uptextfield').value=this.value" />
+				                                        </div>                             
+				                                    </td>
+				                                    <td>    
+				                                    	<div style="position: relative;width:400px;">
+				                                    		<input type="submit" id="btnSoftSubmit" class="button_setting ui-button" style="display: none"/>
+				                                    		<input id="btUpgrade" type="button" class="button_setting ui-button" onclick="divLocalUpgradeAction()"/> 
+				                                    	</div>       
+				                                    </td>
+				                                </tr>
+				                            </table>
+
+				                        </div>
+				                    </form>
+								</div>
+								<!-- 本地升级 -->
+								<!-- 升级错误提示 -->
+								<div class="formBox">
+									<label id="upgradePageError" style="display:none"></label>
+								</div>
+								<!-- 升级错误提示 -->
+							</div>
+							<!-- 软件升级 -->
+							<!-- 设置-->
+							<div id="setting" class="setting">
+								<div class="setting_icon_div">
+									<table class="setting_icon_table">
+										<tr>
+											<td><a onclick="open_setting_guide()" href="javascript:void(0)"><img id="setting_guide_img" src="images/setting/setting_active_1.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_dial()" href="javascript:void(0)"><img id="setting_dial_img" src="images/setting/setting_2.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_wlan()" href="javascript:void(0)"><img id="setting_wlan_img"  src="images/setting/setting_3.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_dhcp()" href="javascript:void(0)"><img id="setting_dhcp_img" src="images/setting/setting_4.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_dns()" href="javascript:void(0)"><img id="setting_dns_img" src="images/setting/setting_5.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_network()" href="javascript:void(0)"><img id="setting_network_img" src="images/setting/setting_6.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_security()" href="javascript:void(0)"><img id="setting_security_img" src="images/setting/setting_7.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_system()" href="javascript:void(0)"><img id="setting_system_img" src="images/setting/setting_8.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_ipv6()" href="javascript:void(0)"><img id="setting_ipv6_img" src="images/setting/setting_9.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_firewall()" href="javascript:void(0)"><img id="setting_firewall_img" src="images/setting/setting_10.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_status()" href="javascript:void(0)"><img id="setting_status_img" src="images/setting/setting_11.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_advanced()" href="javascript:void(0)"><img id="setting_advanced_img" src="images/setting/setting_12.png" alt="img"/></a></td>
+											<td><a onclick="open_setting_pppoe()" href="javascript:void(0)"><img id="setting_pppoe_img" src="images/setting/setting_13.png" alt="img"/></a></td>
+										</tr>
+										<tr>
+											<td><a onclick="open_setting_guide()" href="javascript:void(0)"><label id="quickTitle"></label></a></td>
+											<td><a onclick="open_setting_dial()" href="javascript:void(0)"><label id="dialTitle"></label></a></td>
+											<td><a onclick="open_setting_wlan()" href="javascript:void(0)"><label id="wlanTitle"></label></a></td>
+											<td><a onclick="open_setting_dhcp()" href="javascript:void(0)"><label id="dhcpTitle"></label></a></td>
+											<td><a onclick="open_setting_dns()" href="javascript:void(0)"><label id="dnsTitle"></label></a></td>
+											<td><a onclick="open_setting_network()" href="javascript:void(0)"><label id="networkTitle"></label></a></td>
+											<td><a onclick="open_setting_security()" href="javascript:void(0)"><label id="SIMPINTitle"></label></a></td>
+											<td><a onclick="open_setting_system()" href="javascript:void(0)"><label id="sysTitle"></label></a></td>
+											<td><a onclick="open_setting_ipv6()" href="javascript:void(0)"><label id="ipv6Title"></label></a></td>
+											<td><a onclick="open_setting_firewall()" href="javascript:void(0)"><label id="customFWTitle"></label></a></td>
+											<td><a onclick="open_setting_status()" href="javascript:void(0)"><label id="stateTitle"></label></a></td>
+											<td><a onclick="open_setting_advanced()" href="javascript:void(0)"><label id="advanceSetTitle"></label></a></td>
+											<td><a onclick="open_setting_pppoe()" href="javascript:void(0)"><label id="pppoeTitle"></label></a></td>
+										</tr>
+									</table>
+								</div>
+								<div class="setting_tab">
+									<!-- guide -->
+									<div id="setting_tab_guide" class="setting_tab_content_show">
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:50%;text-align:left;">
+														<label class="setting_tab_lable" id="lQuickSet"></label>
+													</td>
+													<td style="width:50%;text-align:right;">
+														<input type="button" class="button_setting ui-button Apply" id="q2btnApply" value="" onclick="PostWlanQuickSet()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="auto_dns_table">
+												<tr>
+													<td class="td_w_100">
+														<label id="guide_username_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" id="q2tbSSID" name="guide_value" class="input_text_green" maxlength="32" />
+													</td>									
+													<td class="td_w_50" id="q2tr5">
+														<div class="checkbox-black" id="q2ckeckId">
+															<input type="checkbox" id="q2chkUnmask"/>
+															<label class="bglabel" for="q2chkUnmask" onchange="q2showHidePassword()" onclick="q2showHidePassword()"></label>
+														</div>
+													</td>
+													<td class="td_w_100_center" id="q2tr55">
+														<label id="guide_password_open_title" class="PasswordPass"></label>
+													</td>
+												</tr>
+												<tr>
+													<td class="td_w_100" id="q2tr44">
+														<label id="guide_password_title"></label>
+													</td>
+													<td class="td_w_250" id="q2tr4">
+														<!--明文密码-->
+														<input type="password" id="q2tbpass" class="input_text_green" onpaste="return false" oncontextmenu="return false;"/>
+														<!--加密密码-->
+														<input type="text" id="q2tbpassText" class="input_text_green" onpaste="return false" oncontextmenu="return false;" />
+													</td>
+													<td class="td_w_50 hide_css" id="q2tr6">
+														<div class="checkbox-black" id="q2ckeckSsidId">
+															<input type="checkbox" id="q2chkSsid"/>
+															<label class="bglabel" for="q2chkSsid"></label>
+														</div>
+													</td>
+													<td class="td_w_100_center hide_css" id="q2tr66">
+														<label id="q2devlunmaskpass"></label>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div class="formBox">
+						                    <label id='q2Error'></label>
+						                </div>
+									</div>
+									<!-- dial -->
+									<div id="setting_tab_dial" class="setting_tab_content">
+										<!-- 拨号设置-->
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:50%;text-align:left;">
+														<label class="setting_tab_lable" id="lDialSet"></label>
+													</td>
+													<td style="width:50%;text-align:right;">
+														<input type="button" class="button_setting ui-button Apply" value="" id="d3btnApply" onclick="postUserSetProfileData()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="Profile_list_table">
+												<tr>
+													<td class="td_w_150">
+														<label id="profile_list_title"></label>
+													</td>
+													<td class="td_w_250">
+														<a class="btn-select" id="profile_list_select"> 
+															<span class="cur-select" id="Profiledropdown"></span> 
+															<select id="pProfile"> 
+															</select> 
+														</a> 
+													</td>
+													<td class="td_w_50" id="trRoam">
+														<div class="checkbox-black">
+															<input type="checkbox" id="profile_mask_value" name="profile_mask_value" />
+															<label class="bglabel" for="profile_mask_value"></label>
+														</div>
+													</td>
+													<td class="td_w_350" id="trRoamLabel">
+														<label id="profile_mask_title"></label>
+													</td>
+												</tr>
+												<tr>
+													<td class="td_w_150">
+														<label id="profile_connect_title"></label>
+													</td>
+													<td class="td_w_250">
+														<a class="btn-select" id="profile_connect_select"> 
+															<span class="cur-select"></span> 
+															<select> 
+																<option value="1" id="optAuto"></option> 
+																<option value="2" id="optManual"></option> 
+															</select> 
+														</a> 
+													</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>								
+											</table>
+										</div>
+										<!-- profile信息-->
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:50%;text-align:left;">
+														<label class="setting_tab_lable" id="lprofileInfo"></label>
+													</td>
+													<td style="width:50%;text-align:right;">
+														<input type="button" class="button_setting ui-button btnAdd" id="btnAddISP" value="" onclick="addNewProfile()"/>
+														<input type="button" class="button_setting ui-button btnDelete" id="btnDeleteISP" value="" onclick="deleteProfile()"/>
+														<input type="button" class="button_setting ui-button btnModify" id="btnDialModifyProfile" value="" onclick="modifyProfile()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="Profile_input_table">
+												<tr>
+													<td class="td_w_150">
+														<label id="profile_name_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" id="textProfileName" class="input_text_green" size="30" maxlength="15"/>
+													</td>
+													<td class="td_w_100">
+														<label id="profile_apn_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" id="textAPNName" class="input_text_green" size="30" maxlength="64"/>
+													</td>
+												</tr>
+												<tr>
+													<td class="td_w_150">
+														<label id="profile_username_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" class="input_text_green" size="30" id="textUserName" maxlength="32"/>
+													</td>
+													<td class="td_w_100">
+														<label id="profile_password_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" class="input_text_green" size="30" id="textPassword" maxlength="32"/>
+													</td>
+												</tr>
+												<tr>
+													<td class="td_w_150">
+														<label id="profile_agreement_title"></label>
+													</td>
+													<td class="td_w_250">
+														<a class="btn-select" id="profile_agreement_select"> 
+															<span class="cur-select"></span> 
+															<select id="protocol_option_select"> 
+																<option value="0" id="optPro0"></option> 
+																<option value="1" id="optPro1"></option> 
+																<option value="2" id="optPro2"></option> 
+																<option value="3" id="optPro3"></option> 
+															</select> 
+														</a>
+													</td>
+													<td class="td_w_100">
+														<label id="profile_ip_agreement_title"></label>
+													</td>
+													<td class="td_w_250">
+														<a class="btn-select" id="profile_ip_agreement_select"> 
+															<span class="cur-select"></span> 
+															<select id="ip_protocol_option_select"> 
+																<option value="0" id="optProfileIpType0"></option> 
+																<option value="2" id="optProfileIpType2"></option> 
+																<option value="1" id="optProfileIpType1" style="display:none"></option>
+															</select> 
+														</a>
+													</td>
+												</tr>							
+											</table>
+										</div>
+									</div>
+									<!-- wlan -->
+									<div id="setting_tab_wlan" class="setting_tab_content">
+										<table class="TB_WD_100">
+											<!-- WLAN Basic Setup Title-->
+											<tr>
+												<td colspan="2">
+													<table class="TB_WD_100">
+														<tr>
+															<td style="width:50%;text-align:left;">
+																<label class="setting_tab_lable" id="lWlanBasicSet"></label>
+															</td>
+															<td style="width:50%;text-align:right;">
+																<input type="button" class="button_setting ui-button Apply" id='w4btnApply' onclick='PostWlanSecuritySet()'/>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<!-- WLAN Basic Setup Title-->
+											<tr><td colspan="2"><hr class="split_1000_hr"/></td></tr>
+											<!-- WLAN Switch Status-->
+											<tr id="w4trNetwork">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="lNetwork"></label></td>
+															<td>
+																<table>
+																	<tr>
+																		<td class="td_w_50">
+																			<label id="wireless_open" class="Open"></label>
+																		</td>
+																		<td class="td_w_50">
+																			<div class="checkbox-black">
+																				<input type="checkbox" value="1" id="radioNwEnable" name="simple_network" />
+																				<label class="bglabel" for="radioNwEnable" onclick="EDWirelessNW_Enable()"></label>
+																			</div>										
+																		</td>
+																		<td class="td_w_50">
+																			<label id="wireless_close" class="Close"></label>
+																		</td>
+																		<td class="td_w_50">
+																			<div class="checkbox-black">
+																				<input type="checkbox" value="0" id="radioNwDisable" name="simple_network" />
+																				<label class="bglabel" for="radioNwDisable" onclick="EDWirelessNW_Disable()"></label>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<!-- WLAN Switch Status-->
+											<!-- MultiSSID Switch Status-->
+											<tr id="w4tr_multiSSIDradiolist" class="hide_css">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="lmultiSSID"></label></td>
+															<td>
+																<table>
+																	<tr>
+																		<td class="td_w_50">
+																			<label id="multiple_open" class="Open"></label>
+																		</td>
+																		<td class="td_w_50">
+																			<div class="checkbox-black">
+																				<input type="checkbox" value="1" id="radiomultiSSIDEnable" name="multiple_network" />
+																				<label class="bglabel" for="radiomultiSSIDEnable" onclick="EDmultiSSID_Enable()"></label>
+																			</div>
+																		</td>
+																		<td class="td_w_50">
+																			<label id="multiple_close" class="Close"></label>
+																		</td>
+																		<td class="td_w_50">
+																			<div class="checkbox-black">
+																				<input type="checkbox" value="0" id="radiomultiSSIDDisable" name="multiple_network" />
+																				<label class="bglabel" for="radiomultiSSIDDisable" onclick="EDmultiSSID_Disable()"></label>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<!-- MultiSSID Switch Status-->
+											<!-- MainSSID Info-->
+											<tr id="w4tr1">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="w4lSSID"></label></td>
+															<td class="td_w_250">
+																<input type="text" maxlength="32" id="w4tbSSID" onkeyup="checkSSIDLimit(this)" onpaste="return false" oncontextmenu="return false;" class="input_text_green"/>
+															</td>
+															<td class="td_w_150"><label id="lWireSecurity"></label></td>
+															<td class="td_w_250">
+																<a class="btn-select" id="drpdwnSecurityType"> 
+																	<span class="cur-select"></span> 
+																	<select id="pSecurity"> 
+																		<option value="optNone" id="optNone"></option> 
+																		<option value="WPA2-PSK" id="WPA2-PSK">WPA2-PSK</option> 
+																		<option value="optMixed" id="optMixed"></option> 
+																		<option value="WPA-PSK" id="WPA-PSK">WPA-PSK</option> 
+																		<option value="WEP" id="WEP">WEP</option>
+																		<option value="WAPI-PSK" id="WAPI-PSK" style="display:none;">WAPI-PSK</option> 
+																	</select> 
+																</a>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr id="w4tr2">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="w4lpass"></label></td>
+															<td class="td_w_250">
+																<input type="password" id="w4tbpass" onpaste="return false" oncontextmenu="return false;" class="input_text_green"/>
+																<input type="text" id="w4tbpassText" style="display: none" onpaste="return false" oncontextmenu="return false;" class="input_text_green"/>
+															</td>
+															<td id="w4td1" class="td_w_150"><label id="lwpa"></label></td>
+															<td class="td_w_250">
+																<a class="btn-select" id="drpdwnCipher"> 
+																	<span class="cur-select"></span> 
+																	<select id="pCipher"> 
+																	</select> 
+																</a>
+																<a class="btn-select" id="w4tdEncryptMode" style="display:none"> 
+																	<span class="cur-select"></span> 
+																	<select id="sEncryptType"> 
+																		<option value="1">HEX</option> 
+																		<option value="2">ASCII</option> 
+																	</select> 
+																</a>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr id="w4tr3">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td>
+																<table>
+																	<tr>
+																		<td class="td_w_150"><label id="w4lunmaskpass" class="PasswordPass"></label></td>
+																		<td class="td_w_250">
+																			<div class="checkbox-black">
+																				<input type="checkbox" id="w4chkUnmask" name="w4chkUnmask" />
+																				<label class="bglabel" for="w4chkUnmask" onclick="w4showHidePassword()"></label>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															<td style="width:145px;">&nbsp;</td>
+															<td class="td_w_250">
+																<a class="btn-select" id="w4tdSecurityType" style="display:none"> 
+																	<span class="cur-select"></span> 
+																	<select id="sSecurity"> 
+																		<option value="1" id="SecurityOpen"></option> 
+																		<option value="2" id="SecurityShared"></option> 
+																	</select> 
+																</a>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>     
+											<!-- MainSSID Info-->    
+											<!-- SSID Broadcast-->     
+											<tr id="w4tr4">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="lSSIDCast"></label></td>
+															<td>
+																<table>
+																	<tr>
+																		<td class="td_w_50">
+																			<label id="ssid_broadcast_open" class="Open"></label>
+																		</td>
+																		<td class="td_w_50">
+																			<div class="checkbox-black">
+																				<input type="checkbox" value="1" id="radioCastEnable" name="radioCast" />
+																				<label class="bglabel" for="radioCastEnable"></label>
+																			</div>										
+																		</td>
+																		<td class="td_w_50">
+																			<label id="ssid_broadcast_close" class="Close"></label>
+																		</td>
+																		<td class="td_w_50">
+																			<div class="checkbox-black">
+																				<input type="checkbox" value="0" id="radioCastDisable" name="radioCast" />
+																				<label class="bglabel" for="radioCastDisable"></label>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<!-- SSID Broadcast-->
+											<!-- Wireless Isolate-->
+											<tr id="w4tr5" class="hide_css">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="lapIsolate"></label></td>
+															<td>
+																<table>
+																	<tr>
+																		<td class="td_w_50">
+																			<label id="wireless_client_open_title" class="Open"></label>
+																		</td>
+																		<td class="td_w_50">
+																			<div class="checkbox-black">
+																				<input type="checkbox" value="1" id="radioapIsolateEnable" name="radioapIsolate" />
+																				<label class="bglabel" for="radioapIsolateEnable"></label>
+																			</div>										
+																		</td>
+																		<td class="td_w_50">
+																			<label id="wireless_client_close_title" class="Close"></label>
+																		</td>
+																		<td class="td_w_50">
+																			<div class="checkbox-black">
+																				<input type="checkbox" value="0" id="radioapIsolateDisable" name="radioapIsolate" />
+																				<label class="bglabel" for="radioapIsolateDisable"></label>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<!-- Wireless Isolate-->
+											<!-- MultiSSID Info-->
+											<tr id="w4tr6">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="w4lmultiSSID"></label></td>
+															<td class="td_w_250">
+																<input type="text" maxlength="32" id="w4tbmultiSSID" onkeyup="checkSSIDLimit(this)" onpaste="return false" oncontextmenu="return false;" class="input_text_green"/>
+															</td>
+															<td class="td_w_150"><label id="lmultiWireSecurity"></label></td>
+															<td class="td_w_250">
+																<a class="btn-select" id="multidrpdwnSecurityType"> 
+																	<span class="cur-select"></span> 
+																	<select id="multipSecurity"> 
+																		<option value="moptNone" id="moptNone"></option> 
+																		<option value="mWPA2-PSK" id="mWPA2-PSK">WPA2-PSK</option> 
+																		<option value="moptMixed" id="moptMixed"></option> 
+																		<option value="mWPA-PSK" id="mWPA-PSK">WPA-PSK</option> 
+																		<option value="mWEP" id="mWEP">WEP</option>
+																		<option value="mWAPI-PSK" id="mWAPI-PSK" style="display:none;">WAPI-PSK</option> 
+																	</select> 
+																</a>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr id="w4tr7">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="w4lmultipass"></label></td>
+															<td class="td_w_250">
+																<input type="password" id="multiw4tbpass" onpaste="return false;" oncontextmenu="return false;" class="input_text_green"/>
+																<input type="text" id="multiw4tbpassText" style="display: none" onpaste="return false;" oncontextmenu="return false;" class="input_text_green"/> 
+															</td>
+															<td id="w4multitd1" class="td_w_150"><label id="lmultiwpa"></label></td>
+															<td class="td_w_250">
+																<a class="btn-select" id="multidrpdwnCipher"> 
+																	<span class="cur-select"></span> 
+																	<select id="multipCipher"> 
+																	</select> 
+																</a>
+																<a class="btn-select" id="w4multiencryptMode" style="display:none"> 
+																	<span class="cur-select"></span> 
+																	<select id="multisEncryptType"> 
+																		<option value="1">HEX</option> 
+																		<option value="2">ASCII</option> 
+																	</select> 
+																</a>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr id="w4tr8">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td>
+																<table>
+																	<tr>
+																		<td class="td_w_150"><label id="w4lmultiunmaskpass" class="PasswordPass"></label></td>
+																		<td class="td_w_250">
+																			<div class="checkbox-black">
+																				<input type="checkbox" id="w4chkmultiUnmask" name="w4chkmultiUnmask" />
+																				<label class="bglabel" for="w4chkmultiUnmask" onclick="w4showHidemultiPassword()"></label>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															<td style="width:145px;">&nbsp;</td>
+															<td class="td_w_250">
+																<a class="btn-select" id="multiw4tdSecurityType" style="display:none"> 
+																	<span class="cur-select"></span> 
+																	<select id="multiSecurity"> 
+																		<option value="1" id="multiSecurityOpen"></option> 
+																		<option value="2" id="multiSecurityShared"></option> 
+																	</select> 
+																</a>
+															</td>
+														</tr>
+													</table>
+												</td> 	
+											</tr> 
+											<!-- MultiSSID Info-->
+										</table>
+										<table id="tbWlanAdvancedSet" class="TB_WD_100">
+											<!-- WlanAdvancedSet Title-->
+											<tr>
+												<td colspan="2">
+													<table class="TB_WD_100">
+														<tr>
+															<td style="width:50%;text-align:left;">
+																<label class="setting_tab_lable" id="lWlanAdvancedSet"></label>
+															</td>
+															<td style="width:50%;text-align:right;">
+																<input type="button" class="button_setting ui-button Apply" id="w4btnApply1" onclick='PostWlanAdvancedSet()' />
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<!-- WlanAdvancedSet Title-->
+											<tr><td colspan="2"><hr class="split_1000_hr"/></td></tr>
+											<tr>
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="l80211_mode"></label></td>
+															<td class="td_w_250">
+																<a class="btn-select" id="drpdwnMode"> 
+																	<span class="cur-select"></span> 
+																	<select id="pMode"> 
+																		<option value="0" id="opt80211bgn"></option> 
+																		<option value="1" id="opt80211"></option> 
+																		<option value="2" id="opt80211n"></option> 
+																		<option value="5" id="opt80211b"></option>
+																		<option value="6" id="opt80211g"></option>
+																		<option value="3" id="opt80211a"></option> 
+																		<option value="4" id="opt80211an"></option> 
+																	</select> 
+																</a>
+															</td>
+															<td class="td_w_150"><label id='lChannel'></label></td>
+															<td class="td_w_250">
+																<a class="btn-select" id="2GChannel"> 
+																	<span class="cur-select"></span> 
+																	<select id="pChannel"> 
+																		<option value="0"  id="optAutomatic"></option> 
+																		<option value="1"   id="optChannel1"></option> 
+																		<option value="2"   id="optChannel2"></option> 
+																		<option value="3"   id="optChannel3"></option> 
+																		<option value="4"   id="optChannel4"></option> 
+																		<option value="5"   id="optChannel5"></option> 
+																		<option value="6"   id="optChannel6"></option> 
+																		<option value="7"   id="optChannel7"></option> 
+																		<option value="8"   id="optChannel8"></option> 
+																		<option value="9"   id="optChannel9"></option> 
+																		<option value="10" id="optChannel10"></option> 
+																		<option value="11" id="optChannel11"></option> 
+																		<option value="12" id="optChannel12"></option> 
+																		<option value="13" id="optChannel13"></option> 
+																	</select> 
+																</a>
+																<a class="btn-select" id="5GChannel" style="display:none;"> 
+																	<span class="cur-select"></span> 
+																	<select id="p5GChannel"> 
+																		<option value="0" id="5GAuto"></option>
+																		<option value="149" id="optChannel149"></option>
+																		<option value="153" id="optChannel153"></option>
+																		<option value="157" id="optChannel157"></option>
+																		<option value="161" id="optChannel161"></option>
+																	</select> 
+																</a>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr id="trFB">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id='lFrequency'></label></td>
+															<td class="td_w_250">
+																<a class="btn-select" id="drpdwnFreq"> 
+																	<span class="cur-select"></span> 
+																	<select id="pFrequency"> 
+																		<option value="1" id="frequency1"></option> 
+																		<option value="2" id="frequency2" style="display:none;"></option> 
+																	</select> 
+																</a>
+															</td>
+															<td class="td_w_150"><label id='lBand'></label></td>
+															<td class="td_w_250">
+																<a class="btn-select" id="drpdwnBand"> 
+																	<span class="cur-select"></span> 
+																	<select id="pBand"> 
+																		<option value="1" id="band1"></option> 
+																		<option value="2" id="band2" style="display:none;"></option> 
+																		<option value="0" id="band0" style="display:none;"></option> 
+																	</select> 
+																</a>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="lMaxClient"></label></td>
+															<td class="td_w_250">
+																<a class="btn-select" id="selMaxClient"> 
+																	<span class="cur-select"></span> 
+																	<select id="pMaxClient"> 
+																		<option value="1" id="optMax1">1</option> 
+																		<option value="2" id="optMax2">2</option> 
+																		<option value="3" id="optMax3">3</option> 
+																		<option value="4" id="optMax4">4</option> 
+																		<option value="5" id="optMax5">5</option> 
+																		<option value="6" id="optMax6">6</option>
+																		<option value="7" id="optMax7">7</option>
+																		<option value="8" id="optMax8">8</option>
+																		<option value="9" id="optMax9">9</option>
+																		<option value="10" id="optMax10">10</option>
+																		<option value="11" id="optMax11">11</option>
+																		<option value="12" id="optMax12">12</option>
+																		<option value="13" id="optMax13">13</option>
+																		<option value="14" id="optMax14">14</option>
+																		<option value="15" id="optMax15">15</option>
+																		<option value="16" id="optMax16">16</option>
+																		<option value="17" id="optMax17">17</option>
+																		<option value="18" id="optMax18">18</option>
+																		<option value="19" id="optMax19">19</option>
+																		<option value="20" id="optMax20">20</option>
+																		<option value="21" id="optMax21">21</option>
+																		<option value="22" id="optMax22">22</option>
+																		<option value="23" id="optMax23">23</option>
+																		<option value="24" id="optMax24">24</option>
+																		<option value="25" id="optMax25">25</option>
+																		<option value="26" id="optMax26">26</option>
+																		<option value="27" id="optMax27">27</option>
+																		<option value="28" id="optMax28">28</option>
+																		<option value="29" id="optMax29">29</option>
+																		<option value="30" id="optMax30">30</option>
+																		<option value="31" id="optMax31">31</option>
+																		<option value="32" id="optMax32">32</option>
+																	</select> 
+																</a>
+															</td>
+															<td class="td_w_150"><label id="lwifibandwidth"></label></td>
+															<td class="td_w_250">
+																<a class="btn-select" id="WiFiBandwidthMode"> 
+																	<span class="cur-select"></span> 
+																	<select> 
+																		<option value="0" id="WiFiBandwidthMode20M"></option> 
+																		<option value="1" id="WiFiBandwidthModeAuto"></option> 
+																		<option value="2" id="WiFiBandwidthMode40M"></option> 
+																	</select> 
+																</a>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr class="hide_css">
+												<td colspan="2">
+													<table>
+														<tr>
+															<!-- WALN抗LTE干扰，去掉display:none就可以使用 -->
+															<td class="td_w_150"><label id="lLteWlanEnable" class="hide_css"></label></td>
+															<td class="td_w_250">
+																<a class="btn-select hide_css" id="iLteWlanEnable"> 
+																	<span class="cur-select"></span> 
+																	<select id="LteWlanEnable"> 
+																		<option value="0" id="LteWlanEnableClose"></option> 
+																		<option value="1" id="LteWlanEnableOpen"></option> 
+																	</select> 
+																</a>
+															</td>
+															<td class="td_w_150">&nbsp;</td>
+															<td class="td_w_250">&nbsp;</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+										<table id="displaywlan_auto" class="TB_WD_100">
+											<!-- displaywlan_auto Title-->
+											<tr>    
+												<td colspan="2">
+													<table class="TB_WD_100">
+														<tr>
+															<td style="width:50%;text-align:left;">
+																<label class="setting_tab_lable" id="wlan_auto_disconnect_set"></label>
+															</td>
+															<td style="width:50%;text-align:right;">
+																<input type="button" onclick="post_wlan_auto_disconnect_data()" id='wlan_auto_disconnect_apply' class="button_setting ui-button Apply"/>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr> 
+											<!-- displaywlan_auto Title-->
+											<tr><td colspan="2"><hr class="split_1000_hr"/></td></tr>
+											<!-- displaywlan_auto Info-->
+											<tr>
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="wlan_auto_disconnect"></label></td>
+															<td>
+																<table>
+																	<tr>
+																		<td class="td_w_50">
+																			<label id="wlan_autoloader_open" class="Open"></label>
+																		</td>
+																		<td class="td_w_50">
+																			<div class="checkbox-black">
+																				<input type="checkbox" value="1" id="auto_disconnectEnable" name="wlan_autoloader_checkbox" />
+																				<label class="bglabel" for="auto_disconnectEnable" onclick="open_wlan_auto_switch()"></label>
+																			</div>										
+																		</td>
+																		<td class="td_w_50">
+																			<label id="wlan_autoloader_close" class="Close"></label>
+																		</td>
+																		<td class="td_w_50">
+																			<div class="checkbox-black">
+																				<input type="checkbox" value="0" id="auto_disconnectDisable" name="wlan_autoloader_checkbox" />
+																				<label class="bglabel" for="auto_disconnectDisable" onclick="close_wlan_auto_switch()"></label>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr id = "timesetdisplay">
+												<td colspan="2">
+													<table>
+														<tr>
+															<td class="td_w_150"><label id="time_select"></label></td>
+															<td class="td_w_250">
+																<a class="btn-select" id="dropdowntime"> 
+																	<span class="cur-select"></span> 
+																	<select id="time_options"> 
+																		<option value="1" id="time10"></option> 
+																		<option value="2" id="time20"></option> 
+																		<option value="3" id="time30"></option> 
+																	</select> 
+																</a>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<!-- displaywlan_auto Info-->
+										</table>
+									</div>
+									<!-- dhcp -->
+									<div id="setting_tab_dhcp" class="setting_tab_content">
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:50%;text-align:left;">
+														<label class="setting_tab_lable">DHCP</label>
+													</td>
+													<td style="width:50%;text-align:right;">
+														<input type="button" class="button_setting ui-button Apply" value="" onclick="PostDhcpSet()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="dhcp_table">
+												<tr>
+													<td class="td_w_150">
+														<label id="dhcp_ip_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" id="ipText" maxlength="15" class="input_text_green"/>
+													</td>
+													<td class="td_w_150">
+														<label id="dhcp_server_title"></label>
+													</td>
+													<td class="td_w_50">
+														<label id="dhcp_server_open_title" class="Open"></label>
+													</td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="1" id="dhcp_server_open_checkbox" name="dhcp_server_checkbox" />
+															<label class="bglabel" for="dhcp_server_open_checkbox" onclick="open_dhcp_server_click()"></label>
+														</div>										
+													</td>
+													<td class="td_w_50">
+														<label id="dhcp_server_close_title" class="Close"></label>
+													</td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="0" id="dhcp_server_close_checkbox" name="dhcp_server_checkbox" />
+															<label class="bglabel" for="dhcp_server_close_checkbox" onclick="close_dhcp_server_click()"></label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td class="td_w_150">
+														<label id="dhcp_mask_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" id="maskText" maxlength="15" disabled="disabled" class="input_text_green"/>
+													</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>
+												<tr id="tr_ipStartText">
+													<td class="td_w_150">
+														<label id="dhcp_start_ip_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" id="ipStartText" maxlength="15"  onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" class="input_text_green"/>
+													</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>
+												<tr id="tr_ipEndText">
+													<td class="td_w_150">
+														<label id="dhcp_end_ip_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" id="ipEndText" maxlength="15"  onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" class="input_text_green"/>
+													</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>
+												<tr id="tr_tbdhcplt">
+													<td class="td_w_150">
+														<label id="dhcp_leases_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" id="tbdhcplt"  maxlength="10" onkeyup="value=value.replace(/\D/g,'')" class="input_text_green"/>
+													</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<!-- dns -->
+									<div id="setting_tab_dns" class="setting_tab_content">
+										<div id="setting_tab_guide" class="setting_tab_content_show">
+											<div class="setting_tab_lable_div">
+												<table class="TB_WD_100">
+													<tr>
+														<td style="width:50%;text-align:left;">
+															<label class="setting_tab_lable">DNS</label>
+														</td>
+														<td style="width:50%;text-align:right;">
+															<input type="button" class="button_setting ui-button Apply" value="" onclick="PostDnsSet()"/>
+														</td>
+													</tr>
+												</table>
+												<hr class="split_1000_hr"/>
+											</div>
+											<div class="setting_tab_show_content">
+												<table class="auto_dns_table">
+													<tr>
+														<td>
+															<div class="checkbox-black">
+																<input type="checkbox" value="0" id="auto_dns_checkbox" name="auto_dns_checkbox" />
+																<label class="bglabel" for="auto_dns_checkbox" onclick="auto_dnsserver_click()"></label>
+															</div>
+														</td>
+														<td><label id="auto_dns_title"></label></td>
+													</tr>
+													<tr>
+														<td>
+															<div class="checkbox-black">
+																<input type="checkbox" value="1" id="manual_dns_checkbox" name="auto_dns_checkbox" />
+																<label class="bglabel" for="manual_dns_checkbox" onclick="manual_dnsserver_click()"></label>
+															</div>
+														</td>
+														<td>
+															<label id="manual_dns_title"></label>
+														</td>
+													</tr>
+												</table>
+												<table id="manual_dns_input_table" class="manual_dns_input_table">
+													<tr>
+														<td>
+															<label id="manual_first_dns_title"></label>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<input type="text" id="preferDnsText" maxlength="15" class="input_text_green"/>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<label id="manual_two_dns_title"></label>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<input type="text" id="standbyDnsText" maxlength="15" disabled="disabled" class="input_text_green"/>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+									<!-- network -->
+									<div id="setting_tab_network" class="setting_tab_content">
+										<div class="lManualSearch_div" id="Uplmn_tb1_label">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:30%;text-align:left;">
+														<label class="setting_tab_lable" id="lUPLMNManagement"></label>
+													</td>
+													<td style="width:70%;text-align:right;" id="Uplmn_tb1_button">
+														<input type="button" class="button_setting ui-button btnQuery" value="" onclick="QueryNetwork()"/>
+														<input type="button" class="button_setting ui-button btnAdd" value="" onclick="AddNetwork()"/>
+														<input type="button" class="button_setting ui-button btnDelete" value="" onclick="DeleteNetwork()"/>
+														<input type="button" class="button_setting ui-button btnModify" value="" onclick="ModifyNetwork()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content" id="Uplmn_tb1_table">
+											<div class="network_uplmn_content">
+												<table class="network_uplmn_table" id="UplmnTable">
+													<thead>
+														<tr>
+															<th><label id="number"></label></th>
+															<th><label id="displayType"></label></th>
+															<th><label id="copsName"></label></th>
+															<th><label id="copsNumber2"></label></th>
+															<th><label id="techNology"></label></th>
+														</tr>
+													</thead>
+													<tbody>	
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="formBox">
+											<label id='uplmnErr'></label>
+										</div>
+										<div class="lManualSearch_div" id="Uplmn_tb2_label">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:30%;text-align:left;">
+														<label class="setting_tab_lable" id="lManualSearch"></label>
+													</td>
+													<td style="width:70%;text-align:right;" id="Uplmn_tb2_button">
+														<input type="button" class="button_setting ui-button" id="SearchApply" onclick="SelectSearchNetMethod()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content" id="Uplmn_tb2_table">
+											<table>
+												<tr>
+													<td class="td_w_150">
+														<label id="manual_search_type_title"></label>
+													</td>
+													<td class="td_w_250">
+														<a class="btn-select" id="searchType"> 
+															<span class="cur-select"></span> 
+															<select> 
+																<option value="0" id="autoSearch"></option> 
+																<option value="1" id="manualSearch"></option> 
+															</select> 
+														</a>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div class="lManualSearch_div" id="Uplmn_tb3_label">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:30%;text-align:left;">
+														<label class="setting_tab_lable" id="lWanNetSet"></label>
+													</td>
+													<td style="width:70%;text-align:right;" id="Uplmn_tb3_button">
+														<input type="button" class="button_setting ui-button Apply" id="btnApplyWanNet" onclick="PostWanNetSetting()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content" id="Uplmn_tb3_table">
+											<table class="network_mode_table">
+												<tr>
+													<td class="td_w_150">
+														<label id="network_mode_title"></label>
+													</td>
+													<td class="td_w_250">
+														<a class="btn-select" id="pNetMode"> 
+															<span class="cur-select"></span> 
+															<select> 
+																<option value="0" id="optMode0"></option> 
+																<option value="1" id="optMode1"></option> 
+																<option value="2" id="optMode2"></option> 
+																<option value="3" id="optMode3"></option> 
+																<option value="4" id="optMode4"></option> 
+																<option value="5" id="optMode5"></option> 
+																<option value="6" id="optMode6"></option>
+																<option value="20" id="optMode20"></option>
+																<option value="21" id="optMode21"></option>
+																<option value="22" id="optMode22"></option>
+																<option value="23" id="optMode23"></option>
+																<option value="24" id="optMode24"></option>
+																<option value="25" id="optMode25"></option> 
+															</select> 
+														</a>
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<!-- security -->
+									<div id="setting_tab_security" class="setting_tab_content">
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:40%;text-align:left;">
+														<label class="setting_tab_lable" id="lPinSet"></label>
+													</td>
+													<td style="width:60%;text-align:right;" id="Uplmn_tb1_button">
+														<input type="button" class="button_setting ui-button Apply" id="bnPinApply" style="display: none" onclick="onApplyPin()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="security_table" id="Pin_tb1">
+												<tr>
+													<td class="td_w_200">
+														<label id="lCurrentPcodeStatus"></label>
+													</td>
+													<td>
+														<label id="VCurrentPcodeStatus"></label>
+													</td>
+												</tr>
+												<tr>
+													<td class="td_w_200">
+														<label id="pin_code_title">
+														</label>
+													</td>
+													<td class="td_w_250">
+														<a class="btn-select" id="enablePin"> 
+															<span class="cur-select"></span> 
+															<select id="pPin"> 
+															</select> 
+														</a>
+													</td>
+												</tr>
+												<tr id="trPukCode">
+													<td>
+														<label id="lPukInput"></label>
+													</td>
+													<td>
+														<input type='text' maxlength="10" id="txtPukCode" onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green"/>
+													</td>
+												</tr>
+												<tr>
+													<td >
+														<label id="lPinInput"></label>
+													</td>
+													<td >
+														<input type="text" maxlength="8" id="txtPinCode" onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green"/>
+													</td>
+												</tr>
+												<tr id="trNewPinCode" >
+													<td>
+														<label id="lNewPinInput" ></label>
+													</td>
+													<td>
+														<input type='text' maxlength="8" id='txtNewPinCode' onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green"/>
+													</td>
+												</tr>
+												<tr id="trNewPinCodeAgain">
+													<td>
+														<label id="lNewPinCodeAgain" class="lableClass"></label>
+													</td>
+													<td>
+														<input type='text' maxlength="8" id='txtNewPinCodeAgain' onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green"/>
+													</td>
+												</tr>
+												<tr id="trPinAttemptCount" >
+													<td>
+														<label id="lPinLeave"></label>
+													</td>
+													<td>
+														<label id="lPinAttemptCount"></label>
+													</td>
+												</tr>
+												<tr id="trPukAttemptCount">
+													<td>
+														<label id="lPukLeave"></label>
+													</td>
+													<td>
+														<label id="lPukAttemptCount"></label>
+													</td>
+												</tr>
+											</table>
+											<div class="formBox">
+										        <label id="lPinErrorInfo"></label>
+									        </div>
+										</div>
+									</div>
+									<!-- system -->
+									<div id="setting_tab_system" class="setting_tab_content">
+										<!-- 用户管理 -->
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:40%;text-align:left;">
+														<label class="setting_tab_lable" id="lUserManagement"></label>
+													</td>
+													<td style="width:60%;text-align:right;">
+														<input type="button" class="button_setting ui-button Apply" value="" onclick="PostUserManagementSet()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="system_route_table">
+												<tr>
+													<td class="td_w_150">
+														<label id="route_username_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" maxlength="25" id="tbrouter_username" class="input_text_green" autocomplete="off"/>
+													</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>
+												<tr>
+													<td class="td_w_150">
+														<label id="route_password_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="password" id="tbrouter_password" autocomplete="off" maxlength="25" class="input_text_green"/>
+									            		<input type="text" id="tbrouter_passwordText" autocomplete="off" maxlength="25" style="display:none" class="input_text_green"/>
+													</td>
+													<td class="td_w_50" id="sy6ckeckId">
+														<div class="checkbox-black" >
+															<input type="checkbox" id="sy6labelId" name="sy6labelId" />
+															<label class="bglabel" for="sy6labelId" onclick="sy6showHidePassword()"></label>
+														</div>
+													</td>
+													<td class="td_w_200">
+														<label id="route_password_show_title" class="PasswordPass"></label>
+													</td>
+												</tr>
+											</table>
+											<div class="formBox">
+													<label id='sy6Error' ></label>
+												</div>
+										</div>
+										<!-- 用户管理 -->
+										<!-- 系统时间设置 -->
+										<div class="setting_tab_lable_div" id="timeSetBlockLabel">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:40%;text-align:left;">
+														<label class="setting_tab_lable" id="h1TimeSet"></label>
+													</td>
+													<td style="width:60%;text-align:right;">
+														<input type="button" class="button_setting ui-button Apply" id='BtnTimeSet' value="" onclick="SetSystemTime()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">	
+											<table id="timeSetBlock">
+										        <tr>
+													<td>
+														<input maxlength="4" onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green" id="sysTimeY" type="text"/>
+													</td>
+													<td>
+														<label id="lYear"></label>
+													</td>
+													<td>
+														<input maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green" id="sysTimeH" type="text"/>
+													</td>  
+													<td style="width:170px;">
+														<label id="lHour"></label>
+													</td>
+												</tr>
+										        <tr>
+													<td>
+														<input maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green" id="sysTimeMon" type="text"/>
+													</td>
+													<td>
+														<label id="lMonth"></label>
+													</td>
+													<td>
+														<input maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green" id="sysTimeMin" type="text"/>
+													</td>                       
+													<td>
+														<label id="lMinute"></label>
+													</td>
+												</tr>
+										        <tr>
+													<td>
+														<input maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green" id="sysTimeD" type="text"/>
+													</td>
+													<td>
+														<label id="lDay"></label>
+													</td>
+													<td>
+														<input maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="input_text_green" id="sysTimeS" type="text"/>
+													</td>
+													<td>
+														<label id="lSecond"></label>
+													</td>
+												</tr>
+								        	</table>
+							        		<div class="formBox" id="timeSetBlockError">
+												<label class='error' id='lSetTimeError'></label>
+											</div>
+										</div>
+										<!-- 系统时间设置 -->
+										<!-- 时间同步服务器 -->
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:40%;text-align:left;">
+														<label class="setting_tab_lable" id="lNtpserverSet"></label>
+													</td>
+													<td style="width:60%;text-align:right;">
+														<input type="button" class="button_setting ui-button Apply" value="" onclick="SetNtpserver()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="system_ntp_table" id="ntpSetBlock">
+												<tr>
+													<td class="td_w_150">
+														<label id="ntp_address_title"></label>
+													</td>
+													<td class="td_w_250">
+														<!-- NTP服务器下拉 -->
+														<a class="btn-select" id="NtpSerVer_select"> 
+															<span class="cur-select"></span> 
+															<select> 
+																<option value="1" id="NtpSerVer1">time.windows.com</option> 
+																<option value="2" id="NtpSerVer2">time.nist.gov</option> 
+																<option value="3" id="NtpSerVer3">time-nw.nist.gov</option>
+																<option value="4" id="NtpSerVer4">time-a.nist.gov</option>
+																<option value="5" id="NtpSerVer5">time-b.nist.gov</option>
+															</select> 
+														</a>
+													</td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" id="dstserver" name="dstserver" />
+															<label class="bglabel" for="dstserver"></label>
+														</div>
+													</td>
+													<td class="td_w_100">
+														<label id="dst_title"></label>
+													</td>
+												</tr>
+												<tr>
+													<td class="td_w_150">
+														<label id="utc_time_title"></label>
+													</td>
+													<td class="td_w_250">
+														<!-- UTC时区下拉 -->
+														<a class="btn-select" id="icurrentutctime"> 
+															<span class="cur-select"></span> 
+															<select> 
+																<option value="-12" id="UTC_12">UTC -12:00</option>
+																<option value="-11" id="UTC_11">UTC -11:00</option>
+																<option value="-10" id="UTC_10">UTC -10:00</option>
+																<option value="-9" id="UTC_9">UTC -09:00</option>
+																<option value="-8" id="UTC_8">UTC -08:00</option>
+																<option value="-7" id="UTC_7">UTC -07:00</option>
+																<option value="-6" id="UTC_6">UTC -06:00</option>
+																<option value="-5" id="UTC_5">UTC -05:00</option>
+																<option value="-4" id="UTC_4">UTC -04:00</option>
+																<option value="-3" id="UTC_3">UTC -03:00</option>
+																<option value="-2" id="UTC_2">UTC -02:00</option>
+																<option value="-1" id="UTC_1">UTC -01:00</option>
+																<option value="0" id="UTC0">UTC +00:00</option> 
+																<option value="1" id="UTC1">UTC +01:00</option> 
+																<option value="2" id="UTC2">UTC +02:00</option>
+																<option value="3" id="UTC3">UTC +03:00</option>
+																<option value="4" id="UTC4">UTC +04:00</option>
+																<option value="5" id="UTC5">UTC +05:00</option>
+																<option value="6" id="UTC6">UTC +06:00</option>
+																<option value="7" id="UTC7">UTC +07:00</option>
+																<option value="8" id="UTC8">UTC +08:00</option>
+																<option value="9" id="UTC9">UTC +09:00</option>
+																<option value="10" id="UTC10">UTC +10:00</option>
+																<option value="11" id="UTC11">UTC +11:00</option>
+																<option value="12" id="UTC12">UTC +12:00</option>
+															</select> 
+														</a>
+													</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>
+												<tr>
+													<td class="td_w_150">
+														<label id="system_time_title"></label>
+													</td>
+													<td class="td_w_250">
+														<input type="text" id="icurrentsystime" class="input_text_green" readonly="readonly"/>
+													</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>
+											</table>
+											<div class="formBox">
+												<label id="lSetNtpServerError"></label>
+											</div>
+										</div>
+										<!-- 时间同步服务器 -->
+										<!-- 恢复出厂设置 -->
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:40%;text-align:left;">
+														<label class="setting_tab_lable" id="lResotreFactSetting"></label>
+													</td>
+													<td style="width:60%;text-align:right;">
+														<input type="button" class="button_setting ui-button" id="btnRestoreFactorySettings" value="" onclick="RestoreFactoryConfiguration()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<label  id="system_reboot_title"></label>
+										</div>
+										<!-- 恢复出厂设置 -->
+										<!-- 重启网关 -->
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:40%;text-align:left;">
+														<label class="setting_tab_lable" id="lRebooting"></label>
+													</td>
+													<td style="width:60%;text-align:right;">
+														<input type="button" class="button_setting ui-button" id="btnReboot" value="" onclick="onReboot()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<label  id="network_reboot_title"></label>
+										</div>
+										<!-- 重启网关 -->
+									</div>
+									<!-- ipv6 -->
+									<div id="setting_tab_ipv6" class="setting_tab_content">
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:40%;text-align:left;">
+														<label class="setting_tab_lable" id="lProtocolSet"></label>
+													</td>
+													<td style="width:60%;text-align:right;">
+														<input type="button" class="button_setting ui-button Apply" value="" onclick="PostProtocolSet()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="ipv6_setting_table">
+												<tr>
+													<td class="td_w_100"><label id="ipv6_mode_title"></label></td>
+													<td class="td_w_250">
+														<a class="btn-select" id="textIpMode"> 
+															<span class="cur-select"></span> 
+															<select> 
+																<option value="1" id="optIpv1"></option> 
+																<option value="2" id="optIpv2" style="display:none;"></option>
+																<option value="3" id="optIpv3"></option> 
+															</select> 
+														</a>
+													</td>
+												</tr>
+											</table>
+											<table class="mtu_setting_table" id="HideV4_tb1">
+												<tr>
+													<td class="td_w_100"><label id="mtu_title"></label></td>
+													<td class="td_w_250" colspan="5">
+														<input type="text" maxlength="10" id="textMTU" onkeyup="value=value.replace(/\D/g,'')" class="input_text_green"/>
+													</td>
+												</tr>
+												<tr>
+													<td class="td_w_100"><label id="mtu_status_title"></label></td>
+													<td class="td_w_50">
+														<label id="mtu_status_open_title" class="Open"></label>
+													</td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="1" id="mtu_status_open_checkbox" name="mtu_status_checkbox" />
+															<label class="bglabel" for="mtu_status_open_checkbox" onclick="open_MtuStatus()"></label>
+														</div>										
+													</td>
+													<td class="td_w_50">
+														<label id="mtu_status_close_title" class="Close"></label>
+													</td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="0" id="mtu_status_close_checkbox" name="mtu_status_checkbox" />
+															<label class="bglabel" for="mtu_status_close_checkbox" onclick="close_MtuStatus()"></label>
+														</div>
+													</td>
+													<td>&nbsp;</td>
+												</tr>
+												<tr class="hide_css">
+													<td class="td_w_150"><label id="ip_address_setting_title"></label></td>
+													<td class="td_w_100">
+														<label id="ip_address_setting_open_title"></label>
+													</td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="1" id="ip_address_setting_open_checkbox" name="ip_address_setting_checkbox" />
+															<label class="bglabel" for="ip_address_setting_open_checkbox"></label>
+														</div>										
+													</td>
+													<td class="td_w_100">
+														<label id="ip_address_setting_close_title"></label>
+													</td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="0" id="ip_address_setting_close_checkbox" name="ip_address_setting_checkbox" />
+															<label class="bglabel" for="ip_address_setting_close_checkbox"></label>
+														</div>
+													</td>
+													<td>&nbsp;</td>
+												</tr>
+											</table>
+											<div class="formBox">
+							                    <label id="ipSetError" ></label>
+							                </div>
+										</div>
+										<div class="setting_tab_lable_div" id="HideV4_tb2">
+											<label class="setting_tab_lable" id="h1NetworkInfoV6"></label>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content" id="HideV4_tb22">
+											<table class="v6_title_table">
+												<tr>
+													<td class="td_w_150"><label id="ipv6_address_title"></label></td>
+													<td><label id="lNetInfoIpV6"></label></td>
+												</tr>
+												<tr>
+													<td class="td_w_150"><label id="dnsv6_address_title"></label></td>
+													<td><label id="lNetInfoDnsV6"></label></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<!-- firewall -->
+									<div id="setting_tab_firewall" class="setting_tab_content">
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:40%;text-align:left;">
+														<label class="setting_tab_lable" id="lCustomFWRule"></label>
+													</td>
+													<td style="width:60%;text-align:right;">
+														<input type="button" class="button_setting ui-button Apply" value="" onclick="PostCustomFWSet()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="firewall_table">
+												<tr>
+													<td class="td_w_150"><label id="lFWSwitch"></label></td>
+													<td class="td_w_50">
+														<label id="firewall_status_open_title" class="Open"></label>
+													</td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="1" id="firewall_status_open_checkbox" name="firewall_status_checkbox" />
+															<label class="bglabel" for="firewall_status_open_checkbox" onclick="firewall_status_open_click()"></label>
+														</div>										
+													</td>
+													<td class="td_w_50">
+														<label id="firewall_status_close_title" class="Close"></label>
+													</td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="0" id="firewall_status_close_checkbox" name="firewall_status_checkbox" />
+															<label class="bglabel" for="firewall_status_close_checkbox" onclick="firewall_status_close_click()"></label>
+														</div>
+													</td>
+												</tr>
+											</table>
+											<div class="formBox">
+							                    <label id="customFwError"></label>
+							                </div>
+											<div id="filter_tab_div" class="filter_tab">
+												<div class="firewall_menu_tab">
+													<ul>
+														<li id="filter1" onclick="setFilterTab('filter',1,3)"><label id="ip_filter"></label></li>
+														<li id="filter2" onclick="setFilterTab('filter',2,3)"><label id="mac_filter"></label></li>
+														<li id="filter3" onclick="setFilterTab('filter',3,3)"><label id="dns_filter"></label></li>
+													</ul>
+												</div>
+												<!-- ip过滤 -->
+												<div id="con_filter_1" class="con_filter_1">
+													<table class="ip_filter_table">
+														<tr>
+															<td class="td_w_200"><label id="ip_filter_status_title"></label></td>
+															<td class="td_w_50">
+																<label id="ip_filter_status_open_title" class="Open"></label>
+															</td>
+															<td class="td_w_50">
+																<div class="checkbox-black">
+																	<input type="checkbox" value="1" id="ip_filter_status_open_checkbox" name="ip_filter_status_checkbox" />
+																	<label class="bglabel" for="ip_filter_status_open_checkbox" onclick="ip_filter_status_open_click()"></label>
+																</div>										
+															</td>
+															<td class="td_w_50">
+																<label id="ip_filter_status_close_title" class="Close"></label>
+															</td>
+															<td class="td_w_50">
+																<div class="checkbox-black">
+																	<input type="checkbox" value="0" id="ip_filter_status_close_checkbox" name="ip_filter_status_checkbox" />
+																	<label class="bglabel" for="ip_filter_status_close_checkbox" onclick="ip_filter_status_close_click()"></label>
+																</div>
+															</td>
+														</tr>
+													</table>
+													<div class="setting_tab_setting hide_css" id="ip_filter_btn">
+														<div class="setting_tab_network_btn_div">
+															<input type="button" class="button_setting ui-button btnAdd" id="btnIpAdd" onclick="PostIpFilterAdd()"/>
+														</div>		
+														<div><label class="filter_address_label" id="lIpListTitle"></label></div>			
+													</div>
+													<table id="ip_filter_text_table" class="ip_filter_text_table">
+														<thead>
+															<tr>
+																<th><label id="ipIndex"></label></th>
+																<th><label id="ipWanAddr"></label></th>
+																<th><label id="ipPort"></label></th>
+																<th><label id="ipProto"></label></th>
+																<th><label id="ipOperate"></label></th>
+															</tr>
+														</thead>
+														<tbody>	
+														</tbody>
+													</table>
+												</div>
+												<!-- ip过滤 -->
+												<!-- mac过滤 -->
+												<div id="con_filter_2" class="con_filter_2">
+													<!-- 开启 关闭 MAC过滤 -->
+													<table class="mac_filter_table" id="mac_filter_table">
+														<tr>
+															<td class="td_w_200"><label id="mac_filter_status_title"></label></td>
+															<td class="td_w_80">
+																<label id="mac_filter_status_open_title" class="Open"></label>
+															</td>
+															<td class="td_w_50">
+																<div class="checkbox-black">
+																	<input type="checkbox" value="1" id="mac_filter_status_open_checkbox" name="mac_filter_status_checkbox" />
+																	<label class="bglabel" for="mac_filter_status_open_checkbox" onclick="mac_filter_status_open_click()"></label>
+																</div>										
+															</td>
+															<td class="td_w_80">
+																<label id="mac_filter_status_close_title" class="Close"></label>
+															</td>
+															<td class="td_w_50">
+																<div class="checkbox-black">
+																	<input type="checkbox" value="0" id="mac_filter_status_close_checkbox" name="mac_filter_status_checkbox" />
+																	<label class="bglabel" for="mac_filter_status_close_checkbox" onclick="mac_filter_status_close_click()"></label>
+																</div>
+															</td>
+														</tr>
+													</table>
+													<!-- 开启 关闭 MAC过滤 -->
+													<!-- MAC过滤模式选择 -->
+													<div id="mac_filter_mode_list_table">
+														<table class="mac_filter_mode_table" id="mac_filter_mode_table">
+															<tr>
+																<td class="td_w_200"><label id="mac_filter_mode_status_title"></label></td>
+																<td class="td_w_80">
+																	<label id="mac_filter_mode_status_open_title"></label>
+																</td>
+																<td class="td_w_50">
+																	<div class="checkbox-black">
+																		<input type="checkbox" value="1" id="mac_filter_mode_status_open_checkbox" name="mac_filter_mode_status_checkbox" />
+																		<label class="bglabel" for="mac_filter_mode_status_open_checkbox" onclick="mac_filter_mode_status_open_click()"></label>
+																	</div>										
+																</td>
+																<td class="td_w_80">
+																	<label id="mac_filter_mode_status_close_title"></label>
+																</td>
+																<td class="td_w_50">
+																	<div class="checkbox-black">
+																		<input type="checkbox" value="0" id="mac_filter_mode_status_close_checkbox" name="mac_filter_mode_status_checkbox" />
+																		<label class="bglabel" for="mac_filter_mode_status_close_checkbox" onclick="mac_filter_mode_status_close_click()"></label>
+																	</div>
+																</td>
+															</tr>
+														</table>
+														<!-- 黑名单-->
+														<div id="black_list">
+															<div class="setting_tab_setting">
+																<div class="setting_tab_network_btn_div">
+																	<input type="button" class="button_setting ui-button btnAdd"  id="btnMacAdd" onclick="PostMacFilterAdd()"/>
+																</div>		
+																<div><label class="filter_address_label" id="lMacListTitle"></label></div>			
+															</div>
+															<table id="mac_filter_text_table" class="mac_filter_text_table">
+																<thead>
+																	<tr>
+																		<th><label id="macIndex"></label></th>
+																		<th><label id="macAddr"></label></th>
+																		<th><label id="macOperate"></label></th>
+																	</tr>
+																</thead>
+																<tbody>	
+																</tbody>
+															</table>
+														</div>
+														<!-- 黑名单-->
+														<!-- 白名单 -->
+														<div id="white_list">
+															<div class="setting_tab_setting">
+																<div class="setting_tab_network_btn_div">
+																	<input type="button" class="button_setting ui-button btnAdd"  id="btnMacWhiteAdd" onclick="PostMacFilterWhiteAdd()"/>
+																</div>			
+																<div><label class="filter_address_label" id="lMacListWhiteTitle"></label></div>		
+															</div>
+															<table id="mac_filter_white_text_table" class="mac_filter_text_table">
+																<thead>
+																	<tr>
+																		<th><label id="macWhiteIndex"></label></th>
+																		<th><label id="macWhiteAddr"></label></th>
+																		<th><label id="macWhiteOperate"></label></th>
+																	</tr>
+																</thead>
+																<tbody>	
+																</tbody>
+															</table>
+														</div>
+														<!-- 白名单 -->
+													</div>
+													<!-- MAC过滤模式选择 -->
+												</div>
+												<!-- mac过滤 -->
+												<!-- 域名过滤 -->
+												<div id="con_filter_3" class="con_filter_3">
+													<table class="dns_filter_table">
+														<tr>
+															<td class="td_w_200"><label id="dns_filter_status_title"></label></td>
+															<td class="td_w_50">
+																<label id="dns_filter_status_open_title" class="Open"></label>
+															</td>
+															<td class="td_w_50">
+																<div class="checkbox-black">
+																	<input type="checkbox" value="1" id="dns_filter_status_open_checkbox" name="dns_filter_status_checkbox" />
+																	<label class="bglabel" for="dns_filter_status_open_checkbox" onclick="dns_filter_status_open_click()"></label>
+																</div>										
+															</td>
+															<td class="td_w_50">
+																<label id="dns_filter_status_close_title" class="Close"></label>
+															</td>
+															<td class="td_w_50">
+																<div class="checkbox-black">
+																	<input type="checkbox" value="0" id="dns_filter_status_close_checkbox" name="dns_filter_status_checkbox" />
+																	<label class="bglabel" for="dns_filter_status_close_checkbox" onclick="dns_filter_status_close_click()"></label>
+																</div>
+															</td>
+														</tr>
+													</table>
+													<div class="setting_tab_setting hide_css" id="dns_filter_btn">
+														<div class="setting_tab_network_btn_div">
+															<input type="button" class="button_setting ui-button btnAdd"  id="btnDnsAdd" onclick="PostDnsFilterAdd()"/>
+														</div>	
+														<div><label class="filter_address_label" id="lDnsListTitle"></label></div>					
+													</div>
+													<table id="dns_filter_text_table" class="dns_filter_text_table">
+														<thead>
+															<tr>
+																<th><label id="dnsIndex"></label></th>
+																<th><label id="dnsAddr"></label></th>
+																<th><label id="dnsOperate"></label></th>
+															</tr>
+														</thead>
+														<tbody>	
+														</tbody>
+													</table>
+												</div>
+												<!-- 域名过滤 -->
+											</div>
+										</div>
+									</div>
+									<!-- status -->
+									<div id="setting_tab_status" class="setting_tab_content">
+										<div class="setting_tab_lable_div">
+											<label class="setting_tab_lable" id="lDeviceInfo"></label>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="status_text_table">
+												<tr>
+													<td class="td_w_150"><label id="lSwVersion"></label></td>
+													<td class="td_w_150"><label id="textSwVersion"></label></td>
+													<td class="td_w_150"><label id="lHwVersion"></label></td>
+													<td class="td_w_150"><label id="textHwVersion"></label></td>	
+													<td class="td_w_150"><label id="lProductType"></label></td>
+													<td class="td_w_150"><label id="textProductType"></label></td>									
+												</tr>
+												<tr>	
+													<td class="td_w_150"><label id="lImei"></label></td>
+													<td class="td_w_150"><label id="textImei"></label></td>
+													<td class="td_w_150"><label id="lRunTime"></label></td>
+													<td class="td_w_150"><label id="textRunTime"></label></td>
+													<td class="td_w_150"><label id="lBatteryType"></label></td>
+													<td class="td_w_150"><label id="textBatteryType"></label></td>	
+												</tr>
+												<tr id="IMeid_tr">
+													<td class="td_w_150"><label id="lMeid"></label></td>
+									        		<td class="td_w_150"><label id="textMeid"></label></td>
+									        		<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>
+											</table>
+										</div>
+										<div class="setting_tab_lable_div">
+											<label class="setting_tab_lable" id="h1NetworkInfo"></label>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="status_text_table">
+												<tr>
+													<td class="td_w_120"><label id="ipv4Address"></label></td>
+													<td class="td_w_250"><label id="lNetInfoIp"></label></td>
+													<td class="td_w_150"><label id="hostMask"></label></td>
+													<td class="td_w_200"><label id="lNetInfoMask"></label></td>
+													<td class="td_w_100"><label id="lGateway"></label></td>
+													<td class="td_w_100"><label id="lNetInfoGate"></label></td>
+												</tr>
+												<tr>
+													<td class="td_w_120"><label id="lDnsv4"></label></td>
+													<td class="td_w_250"><label id="lNetInfoDns"></label></td>
+													<td class="td_w_150"><label id="lMacAddr"></label></td>
+													<td class="td_w_200"><label id="lNetInfoMac"></label></td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>
+											</table>
+										</div>
+										<div class="setting_tab_lable_div">
+											<label class="setting_tab_lable" id="lCurrentCellInfo"></label>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="status_text_table">
+												<tr>
+													<td class="td_w_150"><label id="lGcellid"></label></td>
+													<td class="td_w_150"><label id="textGcellid_s"></label></td>
+													<td class="td_w_150"><label id="lFreqband"></label></td>
+													<td class="td_w_150"><label id="textFreqband_s"></label></td>
+													<td class="td_w_150"><label id="lEarfcn"></label></td>
+													<td class="td_w_150"><label id="textEarfcn_s"></label></td>
+												</tr>
+												<tr>
+													<td class="td_w_150"><label id="lPcellid"></label></td>
+													<td class="td_w_150"><label id="textPcellid_s"></label></td>
+													<td class="td_w_150"><label id="lUlBandwidth"></label></td>
+													<td class="td_w_150"><label id="textUlBandwidth"></label></td>
+													<td class="td_w_150"><label id="lDlBandwidth"></label></td>
+													<td class="td_w_150"><label id="textDlBandwidth"></label></td>
+												</tr>
+											</table>
+										</div>
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:40%;text-align:left;">
+														<label class="setting_tab_lable" id="h1Log"></label>
+													</td>
+													<td style="width:60%;text-align:right;">
+														<a id="clicktodownloade" href="log.tar" download="log.tar" style="display: none"></a>
+														<input type="button" id="btnDownload"  class="button_setting ui-button" onclick='onDownloadSysLog()'/>
+														<input type="button" class="button_setting ui-button" id="btnClear" value="" onclick="onClearSysLog()"/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content" style="height: 80px; overflow-y: auto;">
+											<table id="tbSysLogBody" class="log_text_table">
+												<thead>
+													<tr>
+														<th><label id="lNumber"></label></th>
+														<th><label id="lEvent"></label></th>
+														<th><label id="lTime"></label></th>
+													</tr>
+												</thead>
+												<tbody>	
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<!-- status -->
+									<!-- advanced-setting -->
+									<div id="setting_tab_advanced" class="setting_tab_content">
+										<div id="lAdvaceSet_1">
+											<div class="setting_tab_lable_div">
+												<table class="TB_WD_100">
+													<tr>
+														<td style="width:40%;text-align:left;">
+															<label class="setting_tab_lable" id="lnetAdvaceSet"></label>
+														</td>
+														<td style="width:60%;text-align:right;">
+															<input type="button" class="button_setting ui-button Apply" value="" onclick="PostNetworkAdvaceSet()"/>
+														</td>
+													</tr>
+												</table>
+												<hr class="split_1000_hr"/>
+											</div>
+											<div class="setting_tab_show_content">
+												<!-- 锁定频段信息 -->
+												<table class="advanced_setting_text_table">
+													<tr>
+														<td class="td_w_150"><label id="lBandSwitch"></label></td>
+														<td>
+															<table>
+																<tr id="originalBandListTable"></tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+												<!-- 锁定频段信息 -->
+												<table class="advanced_setting_text_table">		
+													<tr>
+														<td class="td_w_150"><label id="lcelllock"></label></td>
+														<td class="td_w_50"><label class="Open"></label></td>
+														<td class="td_w_50">
+															<div class="checkbox-black">
+																<input type="checkbox" value="1" id="areas_open_checkbox" name="areas_checkbox" />
+																<label class="bglabel" for="areas_open_checkbox" onclick="areas_open_click()"></label>
+															</div>
+														</td>	
+														<td class="td_w_50"><label class="Close"></label></td>
+														<td class="td_w_50">
+															<div class="checkbox-black">
+																<input type="checkbox" value="0" id="areas_close_checkbox" name="areas_checkbox" />
+																<label class="bglabel" for="areas_close_checkbox" onclick="areas_close_click()"></label>
+															</div>
+														</td>	
+													</tr>
+													<tr id="cell_amount_tr" style="display:none;">
+														<td class="td_w_150"><label id="lcellId"></label></td>
+														<td colspan="4">
+															<input type="text" id="txcellId" name="txcellId" onkeyup="value=value.replace(/\D/g,'')" class="input_text_green"/>
+														</td>	
+													</tr>
+													<tr>
+														<td class="td_w_150"><label id="lcardlock"></label></td>
+														<td class="td_w_50"><label class="Open"></label></td>
+														<td class="td_w_50">
+															<div class="checkbox-black">
+																<input type="checkbox" value="1" id="card_open_checkbox" name="card_checkbox" />
+																<label class="bglabel" for="card_open_checkbox" onclick="card_open_click()"></label>
+															</div>
+														</td>	
+														<td class="td_w_50"><label class="Close"></label></td>
+														<td class="td_w_50">
+															<div class="checkbox-black">
+																<input type="checkbox" value="0" id="card_close_checkbox" name="card_checkbox" />
+																<label class="bglabel" for="card_close_checkbox" onclick="card_close_click()"></label>
+															</div>
+														</td>							
+													</tr>
+												</table>
+											</div>
+										</div>
+										<div class="setting_tab_show_content" id="lAdvaceSet_2" style="display: none">
+											<div class="setting_tab_lable_div">
+												<table class="TB_WD_100">
+													<tr>
+														<td style="width:40%;text-align:left;">
+															<label class="setting_tab_lable" id="functionState"></label>
+														</td>
+														<td style="width:60%;text-align:right;">
+															<input type="button" class="button_setting ui-button" id="clearLockCell" value="" onclick="PostClearLockCell()"/>
+														</td>
+													</tr>
+												</table>
+												<hr class="split_1000_hr"/>
+											</div>
+											<table class="advanced_setting_text_table">
+										         <tr id="sysMan">
+											        <td>
+														<table>
+															<tr>
+																<td class="td_w_150"><label id="lockCell"></label></td>
+																<td class="td_w_150"><label id="textLockCell"></label></td>
+																<td>&nbsp;</td>
+																<td>&nbsp;</td>
+															</tr>
+															<tr id="sysMan_cell_1"  style="display: none">
+																<td class="td_w_150"><label id="lockCellNum"></label></td>
+																<td class="td_w_150"><label id="textLockCelNum"></label></td>
+																<td class="td_w_250"><label id="lockCellInfo"></label></td>
+																<td class="td_w_250"><label id="textLockCellInfo"></label></td>
+															</tr>
+														</table>
+											        </td>
+										        </tr>
+								        	</table>
+										</div>
+										<div class="setting_tab_show_content" id="lAdvaceSet_3" style="display: none">
+											<div class="setting_tab_lable_div">
+												<table class="TB_WD_100">
+													<tr>
+														<td style="text-align:left;">
+															<label class="setting_tab_lable" id="currentCell"></label>
+														</td>
+													</tr>
+												</table>
+												<hr class="split_1000_hr"/>
+											</div>
+											<table class="advanced_setting_text_table">
+										        <tr id="ccellInfo">
+											        <td>
+														<table>
+															<tr>
+																<td class="td_w_150"><label id="gcellid"></label></td>
+																<td class="td_w_100"><label id="textGcellid"></label></td>
+																<td class="td_w_150"><label id="freqband"></label></td>
+																<td class="td_w_100"><label id="textFreqband"></label></td>
+																<td class="td_w_150"><label id="earfcn"></label></td>
+																<td class="td_w_100"><label id="textEarfcn"></label></td>
+															</tr>
+															<tr>
+																<td class="td_w_150"><label id="pcellid"></label></td>
+																<td class="td_w_100"><label id="textPcellid"></label></td>
+																<td class="td_w_150"><label id="bandwidth"></label></td>
+																<td class="td_w_100"><label id="textBandwidth"></label></td>
+																<td>&nbsp;</td>
+																<td>&nbsp;</td>
+															</tr>
+														</table>
+											        </td>
+										        </tr>
+								        	</table>
+										</div>
+										<div class="setting_tab_show_content" id="lAdvaceSet_4" style="display: none">
+											<div class="setting_tab_lable_div">
+												<table class="TB_WD_100">
+													<tr>
+														<td style="text-align:left;">
+															<label class="setting_tab_lable" id="factoryInfo"></label>
+														</td>
+													</tr>
+												</table>
+												<hr class="split_1000_hr"/>
+											</div>
+											<table class="advanced_setting_text_table">
+										        <tr id="devInfo">
+											        <td>
+														<table>
+															<tr>
+																<td class="td_w_150"><label id="devProvince"></label></td>
+																<td class="td_w_150"><label id="textDevProvince"></label></td>
+															</tr>
+														</table>
+											        </td>
+										        </tr>
+								        	</table>
+										</div>
+									</div>
+									<!-- advanced-setting -->
+									<!-- PPPoE -->
+									<div id="setting_tab_pppoe" class="setting_tab_content">
+										<!--PPPoE服务器设置-->
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:40%;text-align:left;">
+														<label class="setting_tab_lable" id="PPPoEserverSet"></label>
+													</td>
+													<td style="width:60%;text-align:right;">
+														<input type="button" class="button_setting ui-button Apply" value="" onclick=""/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table>
+												<tr>
+													<td class="td_w_150"><label id="lPPPoEset"></label></td>
+													<td class="td_w_50"><label class="Open"></label></td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="1" id="PPPoE_open_checkbox" name="PPPoE_checkbox" />
+															<label class="bglabel" for="PPPoE_open_checkbox"></label>
+														</div>
+													</td>	
+													<td class="td_w_50"><label class="Close"></label></td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="0" id="PPPoE_close_checkbox" name="PPPoE_checkbox" />
+															<label class="bglabel" for="PPPoE_close_checkbox"></label>
+														</div>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<!--PPPoE转L2TP设置-->
+										<div class="setting_tab_lable_div">
+											<table class="TB_WD_100">
+												<tr>
+													<td style="width:40%;text-align:left;">
+														<label class="setting_tab_lable" id="PPPoEtoL2TPSet"></label>
+													</td>
+													<td style="width:60%;text-align:right;">
+														<input type="button" class="button_setting ui-button Apply" value="" onclick=""/>
+													</td>
+												</tr>
+											</table>
+											<hr class="split_1000_hr"/>
+										</div>
+										<div class="setting_tab_show_content">
+											<table class="tunnel_text_table">
+												<tr>
+													<td class="td_w_200"><label id="ltunnelmode"></label></td>
+													<td class="td_w_250">
+														<a class="btn-select" id="tunnel_mode_select"> 
+															<span class="cur-select"></span> 
+															<select> 
+																<option value="1" id="tunnelSingle"></option> 
+																<option value="2" id="tunnelMulti"></option> 
+															</select> 
+														</a>
+													</td>
+													<td class="td_w_100"><label id="LNSserverIP"></label></td>
+													<td class="td_w_250">
+														<input type="text" id="lns_ip_value" name="lns_ip_value" class="input_text_green" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"/>
+													</td>	
+												</tr>
+												<tr>
+													<td class="td_w_200"><label id="LNSserverName"></label></td>
+													<td class="td_w_250">
+														<input type="text" id="lns_dns_value" name="lns_dns_value" class="input_text_green"/>
+													</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>
+											</table>
+											<table class="tunnel_text_table">
+												<tr>
+													<td class="td_w_200"><label id="tunnelCheck"></label></td>
+													<td class="td_w_50"><label class="Open"></label></td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="1" id="lns_tunnel_open_checkbox" name="lns_tunnel_checkbox" />
+															<label class="bglabel" for="lns_tunnel_open_checkbox" onclick="lns_tunnel_open_click()"></label>
+														</div>
+													</td>	
+													<td class="td_w_50"><label class="Close"></label></td>
+													<td class="td_w_50">
+														<div class="checkbox-black">
+															<input type="checkbox" value="0" id="lns_tunnel_close_checkbox" name="lns_tunnel_checkbox" />
+															<label class="bglabel" for="lns_tunnel_close_checkbox" onclick="lns_tunnel_close_click()"></label>
+														</div>
+													</td>	
+												</tr>
+												
+											</table>
+											<table class="tunnel_text_table hide_css" id="lns_tunnel_password_tr">
+												<tr>
+													<td class="td_w_200"><label id="LNSTunnelPassword"></label></td>
+													<td class="td_w_250">
+														<input type="text" id="lns_tunnel_password_value" name="lns_tunnel_password_value" class="input_text_green"/>
+													</td>
+													<td>&nbsp;</td>
+													<td>&nbsp;</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<!-- PPPoE -->
+								</div>
+							</div>
+							<!-- 设置-->
+						</div>	
+						<!-- main -->
+					</div>
+					<!-- content -->
+				</td>
+				<td>
+					<!-- 广告浮动层右边 -->
+					<div id="index_float_right" class="index_float_right" onclick="openRightBanber()">
+						<img src="images/benners/benners-02.jpg" alt="banber" id="index_float_right_img"/>
+					</div>
+					<!-- 广告浮动层右边 -->
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<!-- 广告浮动层底部 -->
+					<div id="index_float_bottom" class="index_float_bottom">
+						<marquee direction="left" scrollamount="6" height="20" behavior="scroll" id="marquee_bottom">
+							Dear Customer Thank you for using Zong MBB device,now you can update your master number to manage your device more effectively. Simply click on update my master number and follow the instructions.Bundle subscriptions are now just a click away,simply select any of the above mentioned bundles to subscribe,for any help or queries please call 310 or 111&minus;222&minus;111
+						</marquee>
+					</div>
+					<!-- 广告浮动层底部 -->
+				</td>
+			</tr>
+		</table>
+	</div>	
+</body>
+</html>

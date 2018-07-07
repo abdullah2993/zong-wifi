@@ -1,0 +1,229 @@
+.index{
+    width:95%;
+    height: auto;
+    margin-left: auto;
+    margin-right:auto;
+}
+.main-left{
+    width: 30%;
+    height: auto;
+    float: left;
+}
+.main-right{
+    width: 70%;
+    height: auto;
+    float: right;
+}
+.main-right-services img:hover{ 
+    opacity:0.5;
+    filter(alpha=50);
+}
+.main-right-bundles img:hover{
+    opacity:0.5;
+    filter(alpha=50);
+}
+.main-right-addons img:hover{
+    opacity:0.5;
+    filter(alpha=50);
+}
+.signal-max-image{
+    margin-top: 5px;
+    width: 140px;
+    height: 90px;
+}
+.main-connected-type{
+    height: 20px;
+}
+.main-connected-type label{
+    margin-left: 120px;
+    color: #c9176f;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.main-connected-lable{
+    color: #000000;
+    font-weight: bold;
+    font-size: 14px;
+}
+.main-connectionsettings-lable{
+    margin-top: 5px;
+    color: #c9176f;
+    font-weight: bold;
+    font-size: 14px;
+}
+.main-connectionsettings-images{
+    margin-top: 5px;
+}
+.main-connectionsettings-images img{
+    width: 30px;
+    height: 30px;
+    margin-left: 15px;
+}
+.main-connectionsettings-images img:hover{
+    opacity:0.5;
+    filter(alpha=50);
+}
+.main-nekworkmodel-select{
+    margin-top: 0px;
+}
+
+.main-usage-lable{
+    margin-top: 5px;
+    color: #c9176f;
+    font-weight: bold;
+    font-size: 14px;
+}
+.main-usage-data{
+    margin-top: 5px;
+    color: #000000;
+    font-size: 14px;
+}
+.main-wlan-lable{
+    margin-top: 5px;
+    color: #c9176f;
+    font-weight: bold;
+    font-size: 14px;
+}
+.main-wlan-data{
+    margin-top: 5px;
+    color: #000000;
+    font-size: 14px;
+}
+.main-right-services{
+    margin-top: 10px;
+    width: 100%;
+    height: 95px;
+}
+.main-right-bundles{
+    width: 100%;
+    height: 85px;
+}
+.main-right-addons{
+    width: 100%;
+    height: 110px;
+}
+.main-right-table-td-center td{
+    width: 20%;
+    text-align: center;
+    font-size: 14px;
+}
+.main-right-recharge{
+    width: 100%;
+    height: 200px;
+}
+.main-right-services-tr-1 td{
+    width: 20%;
+    text-align: center;
+}
+.main-right-services-tr-1 img{
+    width: 40px;
+    height: 40px;
+}
+.main-right-bundles-tr-1 td{
+    width: 20%;
+    text-align: center;
+}
+.main-right-bundles-tr-1 img{
+    width: 40px;
+    height: 40px;
+}
+.main-right-addons-tr-1 td{
+    width: 20%;
+    text-align: center;
+}
+.main-right-addons-tr-1 img{
+    width: 70px;
+    height: 70px;
+}
+.main-right-services-lable{
+    color: #c9176f;
+    font-weight: bold;
+    font-size: 14px;
+}
+.main-right-bundles-lable{
+    color: #c9176f;
+    font-weight: bold;
+    font-size: 14px;
+}
+.main-right-addons-lable{
+    color: #c9176f;
+    font-weight: bold;
+    font-size: 12px;
+}
+.main-right-recharge-tr-1 td{
+    width: 150px;
+    height: 40px;
+}
+.main-right-recharge-tr-2{
+    height: 120px;
+}
+.main-right-recharge-lable{
+    color: #c9176f;
+    font-weight: bold;
+    font-size: 14px;
+}
+.recharge-textarea{
+    border-radius: 10px;
+    resize: none;
+    width:250px;
+    height:110px;
+}
+.ussd-textarea{
+    border-radius: 10px;
+    resize: none;
+    width:450px;
+    height:250px;
+}
+
+.recharge-button:hover{ 
+    opacity:0.5;
+    filter(alpha=50);
+}
+
+.recharge-button{
+    background-color:#c9176f;
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.online-recharge-button{
+    background-color: #9dc852;
+    width: 140px;
+    height: 30px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}
+.online-recharge-button:hover{ 
+    opacity:0.5;
+    filter(alpha=50);
+}
+
+.recharge-tip{
+    font-size: 12px;
+}
+
+.index_float_left{
+    display: none; 
+}
+.index_float_right{
+    display: none;
+}
+
+.index_float_bottom{
+    width: 100%;
+    height: 20px;
+    font-size: 14px;
+    color: #FFFFFF;
+    display: none;
+    background-color: #95cf3c;
+    line-height: 20px;
+    background-size:100%;
+}
+

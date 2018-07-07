@@ -1,0 +1,315 @@
+@font-face {
+    font-family: 'VAGRounded';
+    src: url('VAGRoundedStd-Light.eot');
+    src: url('VAGRoundedStd-Light.eot?#iefix') format('embedded-opentype'),
+        url('VAGRoundedStd-Light.ttf') format('truetype'),
+        url('VAGRoundedStd-Light.woff') format('woff'),
+        url('VAGRoundedStd-Light.svg#VAGRoundedStd-Light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+html{
+    font-family: "VAGRounded","Microsoft YaHei","宋体",sans-serif;
+ 	height: 100%;
+    width: 100%;
+  	-webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    font-size: 14px;
+}
+table{
+    border-spacing: 1px;
+}
+input[type = button]{
+    font-family: "VAGRounded","Microsoft YaHei","宋体",sans-serif;
+}
+input[type = textarea]{
+    font-family: "VAGRounded","Microsoft YaHei","宋体",sans-serif;
+}
+input[type = text]{
+    font-family: "VAGRounded","Microsoft YaHei","宋体",sans-serif;
+}
+.login_body{
+    height: auto;
+    width: 100%;
+    margin:0;
+    padding: 0;
+    background:url("../images/web_login_bg.jpg") no-repeat center;
+    background-color: #FFFEEC;
+    background-size:cover;  
+}
+.content_body{
+    height: auto;
+    width: 100%;
+    margin:0;
+    padding: 0;
+    background:url("../images/bg-img.gif") no-repeat top;
+    background-color: #FFFEEC;
+    background-size:cover;
+}
+.content{
+    width:100%;
+    height:auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+}
+
+.main_head_scale_90{
+    transform: scale(0.9);
+    /*火狐内核*/
+    -moz-transform:scale(0.9);
+    /*谷歌内核*/
+    -webkit-transform:scale(0.9);
+    /*360内核*/
+    -o-transform:scale(0.9);
+    /*IE内核*/
+    -ms-transform:scale(0.9);
+    /*定义缩放的位置*/
+    transform-origin: 50% 50%;
+}
+.main_head_scale_80{
+    transform: scale(0.8);
+    /*火狐内核*/
+    -moz-transform:scale(0.8);
+    /*谷歌内核*/
+    -webkit-transform:scale(0.8);
+    /*360内核*/
+    -o-transform:scale(0.8);
+    /*IE内核*/
+    -ms-transform:scale(0.8);
+    /*定义缩放的位置*/
+    transform-origin: 50% 50%;
+}
+.main_head_scale_70{
+    transform: scale(0.7);
+    /*火狐内核*/
+    -moz-transform:scale(0.7);
+    /*谷歌内核*/
+    -webkit-transform:scale(0.7);
+    /*360内核*/
+    -o-transform:scale(0.7);
+    /*IE内核*/
+    -ms-transform:scale(0.7);
+    /*定义缩放的位置*/
+    transform-origin: 50% 50%;
+}
+
+.main_scale_90_left{
+    transform: scale(0.9);
+    /*火狐内核*/
+    -moz-transform:scale(0.9);
+    /*谷歌内核*/
+    -webkit-transform:scale(0.9);
+    /*360内核*/
+    -o-transform:scale(0.9);
+    /*IE内核*/
+    -ms-transform:scale(0.9);
+    /*定义缩放的位置*/
+    transform-origin: 0% 0%;
+}
+
+.main_scale_80_left{
+    transform: scale(0.8);
+    /*火狐内核*/
+    -moz-transform:scale(0.8);
+    /*谷歌内核*/
+    -webkit-transform:scale(0.8);
+    /*360内核*/
+    -o-transform:scale(0.8);
+    /*IE内核*/
+    -ms-transform:scale(0.8);
+    /*定义缩放的位置*/
+    transform-origin: 0% 0%;
+}
+
+.main_scale_70_left{
+    transform: scale(0.7);
+    /*火狐内核*/
+    -moz-transform:scale(0.7);
+    /*谷歌内核*/
+    -webkit-transform:scale(0.7);
+    /*360内核*/
+    -o-transform:scale(0.7);
+    /*IE内核*/
+    -ms-transform:scale(0.7);
+    /*定义缩放的位置*/
+    transform-origin: 0% 0%;
+}
+
+.main_scale_90_right{
+    transform: scale(0.9);
+    /*火狐内核*/
+    -moz-transform:scale(0.9);
+    /*谷歌内核*/
+    -webkit-transform:scale(0.9);
+    /*360内核*/
+    -o-transform:scale(0.9);
+    /*IE内核*/
+    -ms-transform:scale(0.9);
+    /*定义缩放的位置*/
+    transform-origin: 100% 0%;
+}
+
+.main_scale_80_right{
+    transform: scale(0.8);
+    /*火狐内核*/
+    -moz-transform:scale(0.8);
+    /*谷歌内核*/
+    -webkit-transform:scale(0.8);
+    /*360内核*/
+    -o-transform:scale(0.8);
+    /*IE内核*/
+    -ms-transform:scale(0.8);
+    /*定义缩放的位置*/
+    transform-origin: 100% 0%;
+}
+
+.main_scale_70_right{
+    transform: scale(0.7);
+    /*火狐内核*/
+    -moz-transform:scale(0.7);
+    /*谷歌内核*/
+    -webkit-transform:scale(0.7);
+    /*360内核*/
+    -o-transform:scale(0.7);
+    /*IE内核*/
+    -ms-transform:scale(0.7);
+    /*定义缩放的位置*/
+    transform-origin: 100% 0%;
+}
+
+.main{
+    width:100%;
+    height:auto;
+}
+
+.button_setting{
+    color: #c9176f;
+    border-radius: 5px;
+    height: 25px;
+    width: 80px;
+    font-size:14px;
+    padding: 0 0;
+}
+
+.input_text_green{
+    width: 170px;
+    background: #9dc852;
+    border-radius: 10px;
+    height: 20px;
+    padding-left: 5px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+/* Mozilla Firefox 4 to 18 */
+:-moz-placeholder { 
+    color: #635c5f; opacity:1; 
+}
+ /* Mozilla Firefox 19+ */
+::-moz-placeholder {
+    color: #635c5f;opacity:1;
+}
+input:-ms-input-placeholder{
+    color: #635c5f;opacity:1;
+}
+input::-webkit-input-placeholder{
+    color: #635c5f;opacity:1;
+}
+
+.td_w_50{
+    width: 50px;
+}
+.td_w_80{
+    width: 80px;
+}
+.td_w_100{
+    width: 100px;
+}
+.td_w_120{
+    width: 120px;
+}
+.td_w_130{
+    width: 130px;
+}
+.td_w_150{
+    width: 150px;
+}
+.td_w_150_center{
+    width: 150px;
+    text-align: center;
+}
+.td_w_200{
+    width: 200px;
+}
+.td_w_250{
+    width: 200px;
+}
+.td_w_300{
+    width: 300px;
+}  
+.hide_css{
+    display: none;
+}
+.TB_WD_100{
+    width: 100%;
+}
+.split_1024_hr{
+    width: 1024px;
+    height:1px;
+    border:none;
+    border-top:1px dashed #c9176f;
+}
+.split_1000_hr{
+    width: 100%;
+    height:1px;
+    border:none;
+    border-top:1px dashed #c9176f;
+}
+.loading_dial{
+    text-align:center;
+}
+.loading_dial_img{
+    width: 130px;
+    height: 130px;
+}
+.tableH60 tr{
+    height: 60px;
+}
+.tableH40 tr{
+    height: 40px;
+}
+.tableH30 tr{
+    height: 30px;
+}
+.checkbox{
+    cursor:pointer;background: url(../images/checkbox.png) no-repeat center -3px; 
+    line-height:20px; 
+    height:20px;
+    width:20px; 
+    display:inline-block; 
+}
+
+label.checked{
+    background-position:center -58px;
+}
+
+.disabled_font{
+    color:#635c5f!important;
+}
+
+.bottom_placeholder{
+    height:50px;
+    width:100%;
+    text-align:center;
+}
+
+.td_text_align_left{
+    text-align: left;
+}
+.td_text_align_right{
+    text-align: right;
+}
+.td_text_align_center{
+    text-align: center;
+}

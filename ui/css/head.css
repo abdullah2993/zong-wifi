@@ -1,0 +1,74 @@
+.header-content{
+    width:100%;
+    height: 70px;
+}
+.header-left{
+    width: 227px;
+    height: 70px;
+    float: left;
+}
+.header-right{
+    width: 200px;
+    height: 70px;
+    float: right;
+}
+.logo-image{
+    margin-top: 5px;
+    width: 126px;
+    height: 56px;
+}
+.header-right-lable{
+    width: 200px;
+    height: 25px;
+    text-align: right;
+    margin-top: 5px;
+}
+.header-right-lable a{
+    text-decoration:none;
+    color: #000000;
+    font-weight: bold;
+    font-size: 14px;
+}
+.header-right-image{
+    margin-top: 10px;
+    width: 200px;
+    height: 30px;
+}
+
+.top_signal{
+    width: 30px;
+    height: 25px;
+}
+
+.top_network{
+    width: 25px;
+    height: 25px;
+}
+
+.top_wifi{
+    width: 25px;
+    height: 25px;
+}
+
+.top_battry{
+    width: 20px;
+    height: 25px;
+}
+
+.topsmsnum{
+    background: url("../images/signals/sms.png") no-repeat;
+    width: 35px;
+    height: 25px;
+    -moz-background-size:100% 100%;  
+    background-size:100% 100%; 
+}
+.topunreadsmsnum{
+    width: 25px;
+    height: 17px;
+    background-color: #c91767;
+    border-radius: 5px;
+    margin-left: 15px;
+    color: #ffffff;
+    display:inline-block;
+    text-align: center;
+}

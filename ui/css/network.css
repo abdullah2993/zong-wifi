@@ -1,0 +1,32 @@
+.setting_tab_network_btn_div{
+	text-align: right;
+	width: 500px;
+	height: 30px;
+	margin-right: 10px;
+	position: relative;
+    float: right;
+}
+.network_uplmn_content{
+	margin-left:auto;
+	margin-right: auto;
+	width: 100%;
+	height: auto;
+}
+.network_uplmn_table{
+	background-color:#9dc852;
+	width: 100%;
+	text-align: center;
+	height: auto;
+}
+.network_uplmn_table th{
+	background-color:#eae8e8;
+}
+
+.network_mode_table tr{
+	height: 25px;
+}
+.lManualSearch_div{
+	margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}

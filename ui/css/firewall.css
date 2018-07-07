@@ -1,0 +1,105 @@
+.filter_tab{
+	width: 100%;
+	height: auto;
+	display: none;
+}
+.firewall_table tr{
+	height: 25px;
+}
+.firewall_menu_tab{
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+	background-color: #9dc852;
+}
+.firewall_menu_tab ul{
+	margin:0px;
+	padding: 0px;
+}
+.firewall_menu_tab li{
+	color: #ffffff;
+	float: left;
+	display: block;
+	cursor: pointer;
+	width: 33.3%;
+	text-align: center;
+}
+.firewall_menu_tab li.hover{
+	padding: 0px;
+	background-color: #c9176f;
+}
+.firewall_menu_tab li:hover{
+	padding: 0px;
+	opacity:0.5;
+    filter(alpha=60);
+}
+
+.con_filter_1{
+	margin-top: 5px;
+	width: 100%;
+	height: auto;
+	display: none;
+}
+.con_filter_2{
+	margin-top: 5px;
+	width: 100%;
+	height: auto;
+	display: none;
+}
+.con_filter_3{
+	margin-top: 5px;
+	width: 100%;
+	height: auto;
+	display: none;
+}
+.ip_filter_text_table{
+	background-color:#9dc852;
+	width: 100%;
+	text-align: center;
+	height: auto;
+	display: none;
+	font-size:12px;
+}
+.ip_filter_text_table th{
+	background-color:#eae8e8;
+}
+.ip_filter_text_table td{
+	background-color:#feffed;
+}
+.mac_filter_text_table{
+	margin-top: 10px;
+	background-color:#9dc852;
+	width: 100%;
+	text-align: center;
+	height: auto;
+	font-size:12px;
+}
+.mac_filter_text_table th{
+	background-color:#eae8e8;
+}
+.mac_filter_text_table td{
+	background-color:#feffed;
+}
+.dns_filter_text_table{
+	margin-top: 10px;
+	background-color:#9dc852;
+	width: 100%;
+	text-align: center;
+	height: auto;
+	display: none;
+	font-size:12px;
+}
+.dns_filter_text_table th{
+	background-color:#eae8e8;
+}
+.dns_filter_text_table td{
+	background-color:#feffed;
+}
+.filter_address_label{
+	color: #c9176f;
+	padding:2px;
+}
+.del_40_40{
+	width: 15px;
+	height: 15px;
+}

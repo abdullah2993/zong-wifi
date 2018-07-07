@@ -1,0 +1,87 @@
+.statistics{
+	display: none;
+	width:95%;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+.statistics_flow_lable{
+	color: #c9176f;
+    font-weight: bold;
+    font-size: 14px;
+}
+.statistics_flow{
+	width: 100%;
+}
+.statistics_setting{
+	width: 100%;
+	height: 20px;
+	font-size: 14px;
+}
+.statistics_flow_tip{
+	margin-left:10px;
+}
+.statistics_flow_btn_div{
+	width: 120px;
+	height: 30px;
+	margin-right: 10px;
+	position: relative;
+    float: right;
+}
+.statistics_flow_content{
+	margin-left:auto;
+	margin-right: auto;
+	width: 100%;
+	height: 105px;
+}
+.tableClientDiv{
+	margin-left:auto;
+	margin-right: auto;
+	margin-top: 10px;
+	width: 100%;
+	height: auto;
+}
+.statistics_flow_table{
+	background-color:#9dc852;
+	width: 100%;
+	text-align: center;
+	height: 95px;
+	font-size: 14px;
+}
+.tableClientTable{
+	background-color:#9dc852;
+	width: 100%;
+	text-align: center;
+	height: auto;
+	font-size:14px;
+}
+.tableClientTable th{
+	background-color:#eae8e8;
+}
+.tableClientTable td{
+	background-color:#feffed;
+}
+.statistics_flow_table th{
+	background-color:#eae8e8;
+}
+.statistics_flow_table td{
+	background-color:#feffed;
+}
+.statistics_flow_setting_content{
+	margin-left:auto;
+	margin-right: auto;
+	width: 100%;
+	height: 30px;
+	font-size: 14px;
+}
+.statistics_flow_setting_table tr{
+	height: 30px;
+}
+.flow_setting_tip{
+	text-align: center;
+	color: #ff0000;
+	margin-left:auto;
+	margin-right: auto;
+	width: 100%;
+	height: 30px;
+}

@@ -1,0 +1,174 @@
+.inbox{
+	display: none;
+	width:100%;
+    height: auto;
+    margin-left: auto;
+    margin-right:auto;
+}
+.inbox_icon_div{
+	margin-top: 5px;
+	width: 100%;
+	height: 60px;
+}
+.inbox_icon_table{
+	height: 60px;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+
+.inbox_icon_table a{
+    outline: none;
+}
+.inbox_icon_table a:focus {
+    outline: none;
+}
+.inbox_icon_table img{
+	border: 0;
+	width: 35px;
+	height: 35px;
+}
+.inbox_icon_table img:hover{
+	opacity:0.5;
+    filter(alpha=50);
+}
+.inbox_icon_table a{
+    text-decoration:none;
+    color: #9dc852;
+    font-weight: bold;
+    font-size: 14px;
+}
+.sms_tab{
+	width: 100%;
+	height: auto;
+}
+.sms_tab_content_in{
+	margin-right: auto;
+	margin-left: auto;
+	width: 100%;
+	height: auto;
+}
+.sms_tab_content_out{
+	display: none;
+	margin-right: auto;
+	margin-left: auto;
+	width: 100%;
+	height: auto;
+}
+.sms_tab_content_draft{
+	display: none;
+	margin-right: auto;
+	margin-left: auto;
+	width: 100%;
+	height: auto;
+}
+.sms_tab_content_setting{
+	display: none;
+	margin-right: auto;
+	margin-left: auto;
+	width: 100%;
+	height: auto;
+}
+.sms_tab_table{
+	background-color:#9dc852;
+	width: 100%;
+	text-align: center;
+	font-size: 14px;
+}
+.sms_tab_table th{
+	background-color:#eae8e8;
+}
+.sms_tab_table td{
+	background-color:#feffed;
+}
+.sms_tab_title{
+	margin-top: 5px;
+	color: #c9176f;
+    font-weight: bold;
+    font-size: 14px;
+}
+.sms_tab_btn{
+	width: 100%;
+	height: 30px;
+	text-align: right;
+}
+.sms_tab_table_status{
+	
+}
+.sms_tab_table_type{
+	
+}
+.sms_tab_table_user{
+	
+}
+.sms_tab_table_content{
+	
+}
+.sms_tab_table_date{
+	
+}
+.sms_tab_page{
+	margin-top:5px;
+	width: 100%;
+	height: 50px;
+	text-align: right;
+}
+.sms_setting_div{
+	margin-left: auto;
+	margin-right:auto;
+	margin-top: 40px;
+	width: 100%;
+}
+.sms_setting_lable{
+	color: #c9176f;
+    font-weight: bold;
+    font-size: 20px;
+}
+.sms_btn_setting{
+	width: 100%;
+	height: 30px;
+}
+.sms_btn_setting_right{
+	width: 120px;
+	height: 30px;
+	margin-right: 10px;
+	position: relative;
+    float: right;
+}
+.sms_setting_table{
+   font-size: 14px;
+   width:300px;
+}
+.sms_page:hover{ 
+	opacity:0.5;
+	filter(alpha=50);
+}
+.sms_page{ 
+	width: 30px;
+	height: 30px;
+}
+.nodiv {
+    cursor:pointer;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    word-break:keep-all;
+    text-align:center;
+}
+.contentdiv{
+    cursor:pointer;width:350px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    word-break:keep-all;
+    text-align: left;
+}
+
+.formBox{
+	width:100%;
+	margin-left:auto;
+	margin-right:auto;
+	text-align: center;
+	color: #ff0000;
+}

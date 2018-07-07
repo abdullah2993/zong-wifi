@@ -1,0 +1,43 @@
+.upgrade{
+	display: none;
+	width:95%;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+.upgrade_lable{
+	color: #c9176f;
+    font-weight: bold;
+    font-size: 16px;
+}
+.upgrade_lable_div{
+	margin-left: auto;
+	margin-right:auto;
+	margin-top: 20px;
+	width: 100%;
+    text-align: left;
+}
+.upgrade_file_lable{
+	color: #c9176f;
+	font-size:15px;
+}
+.upgrade_file_error_tip{
+	color: red;
+}
+.upgrade_file_name{
+	background: #9dc852;
+	width: 300px;
+	height: 30px;
+	border-radius: 15px;
+}
+.showFileName{
+	margin-left: 15px;
+	height: 30px;
+	line-height: 30px;
+	width: 250px;
+	display:inline-block; 
+	font-size: 14px;
+    color: #ffffff;
+}
+.file-box{ position:relative;width:340px}
+.file{ position:absolute; top:0; right:10px; height:32px; filter:alpha(opacity:0);opacity: 0;width:330px }

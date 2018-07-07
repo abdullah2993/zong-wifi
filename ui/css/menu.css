@@ -1,0 +1,40 @@
+.menu{
+    background-color: #9dc852;
+    width:100%;
+    height:30px;
+    padding:0px;
+}
+
+.menu-table{
+    width: 100%;
+	font-size:14px;
+}
+
+.menu-table tr{
+    height: 25px;
+    text-align: center;
+} 
+
+.menu-table a{
+    outline: none;
+    text-decoration:none;
+    color: #FFFFFF;
+    line-height: 25px;
+    height: 25px;
+    font-weight: bold;
+    width: 100%;
+}
+.menu-table a:focus {
+    outline: none;
+}
+.menu-table td{
+    height: 25px;
+    text-align: center;
+} 
+.nav{
+    background-color:#9dc852;
+}
+
+.nav-selected{
+    background-color:#c9176f;
+} 

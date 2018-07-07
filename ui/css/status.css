@@ -1,0 +1,17 @@
+.status_text_table tr{
+	height: 19px;
+}
+
+.log_text_table{
+	background-color:#9dc852;
+	width: 100%;
+	text-align: center;
+	height: auto;
+	font-size:14px;
+}
+.log_text_table th{
+	background-color:#eae8e8;
+}
+.log_text_table td{
+	background-color:#feffed;
+}
