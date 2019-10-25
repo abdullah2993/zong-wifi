@@ -77,7 +77,7 @@ It gets more interesting once you do a portscan of the device. The portscan show
  - 5555 - Unknown
 
 ### Port 22
-The device seems to be running SSH server `ssh-2.0-dropbear 2011.54` which has a few known [vulnerabilities](https://www.cvedetails.com/vulnerability-list/vendor_id-2537/product_id-4416/version_id-127485/Matt-Johnston-Dropbear-Ssh-Server-2011.54.html) but without the password I am unable to access it. I'm looking into using `THC-Hydra` and `NCrack`.
+You can ssh into the device as `root` using password `oelinux123`
 
 ### Port 53 and 80
 These ports are standard `DNS` and `HTTP` ports
@@ -114,4 +114,43 @@ Port 3020 is interesting once you connect to it it immediatly send the banner `m
 This port lets you connect to it and keeps the connection open as long as you don't send anything but as soon as you send something it immediately disconnects, possibly expects somekind of pattern IMO(these kinds of ports were found on other routers too)
 
 ### Port 5555
-Lets you connect and send but doesn't return anything and keeps the connection open unlike 3021
+This port runs an unauthenticated `adb daemon` so you can easily connect to it using `adb` and get shell access as follow
+```
+adb connect 192.168.8.1:5555
+adb shell
+```
+you will get access as root user so you can pretty much do anything you want.
+
+### Dumping Image
+You can list the flash partitions using:
+```
+cat /proc/mtd
+
+Output:
+
+dev:    size   erasesize  name
+mtd0: 00140000 00020000 "sbl"
+mtd1: 00140000 00020000 "mibib"
+mtd2: 00b00000 00020000 "efs2"
+mtd3: 00360000 00020000 "sdi"
+mtd4: 00360000 00020000 "tz"
+mtd5: 000c0000 00020000 "mba"
+mtd6: 00360000 00020000 "rpm"
+mtd7: 031e0000 00020000 "qdsp"
+mtd8: 000e0000 00020000 "appsbl"
+mtd9: 00800000 00020000 "apps"
+mtd10: 00040000 00020000 "scrub"
+mtd11: 04a80000 00020000 "cache"
+mtd12: 00160000 00020000 "misc"
+mtd13: 00560000 00020000 "cdrom"
+mtd14: 002e0000 00020000 "logo"
+mtd15: 00800000 00020000 "recovery"
+mtd16: 00100000 00020000 "fota"
+mtd17: 01080000 00020000 "recoveryfs"
+mtd18: 01080000 00020000 "system"
+mtd19: 12e80000 00020000 "userdata"
+```
+you can just `cat` the device and pipe the data to a file e.g. `ssh root@192.168.8.1 "cat /dev/mtd18" > system.img` to get the system image
+
+### Filesystem
+Its just a linux filesystem, fun stuff can be found in `/usr/mifi/`. Some of the configurations are also stored in `sqlite 3` databases and can be found in `/usr/data/`
