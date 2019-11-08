@@ -154,3 +154,7 @@ you can just `cat` the device and pipe the data to a file e.g. `ssh root@192.168
 
 ### Filesystem
 Its just a linux filesystem, fun stuff can be found in `/usr/mifi/`. Some of the configurations are also stored in `sqlite 3` databases and can be found in `/usr/data/`
+
+### Credits
+Thanks to [IMExperts](https://github.com/IMExperts) for providing the `ssh` password as well as mentioning that port `5555` is running `adb`
+
