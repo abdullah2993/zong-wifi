@@ -74,7 +74,7 @@ It gets more interesting once you do a portscan of the device. The portscan show
  - 80 - HTTP (Admin Panel)
  - 3020 - Unknown
  - 3021 - Unknown
- - 5555 - Unknown
+ - 5555 - ADB
 
 ### Port 22
 You can ssh into the device as `root` using password `oelinux123`
