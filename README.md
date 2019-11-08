@@ -1,43 +1,6 @@
 
 # Zong FiberHome 4G Device
 
-## Endpoints
-
-Base URL: `/xml_action.cgi?method=get&module=duster&file=[name]`
-known file names are:
- - admin
- - app_fun_support_list
- - battery_charge
- - custom_fw
- - detailed_log
- - dns
- - download_local_upgrade
- - lan
- - lock_cell_clear
- - message
- - message_drafts
- - message_outbox
- - message_set
- - message_state
- - message_state
- - net_advace_set
- - ntp_server
- - pin_puk
- - reset
- - restore_defaults
- - shutdown
- - status1
- - time_setting
- - traffic_excess_set
- - uapxb_wlan_basic_settings
- - uapxb_wlan_security_settings
- - upgrade_info
- - ussd_business
- - wan
- - wan_choose_net
- - wan_ip
- - wlan_auto_setting
-
  ## Vulnerabilities and Exploits
  Although the device use a wierd authentication method, it is nothing more than a gimmick used 
  by the UI code to give an illusion of authentication.
@@ -81,6 +44,43 @@ You can ssh into the device as `root` using password `oelinux123`
 
 ### Port 53 and 80
 These ports are standard `DNS` and `HTTP` ports
+
+#### Endpoints
+
+Base URL: `/xml_action.cgi?method=get&module=duster&file=[name]`
+known file names are:
+ - admin
+ - app_fun_support_list
+ - battery_charge
+ - custom_fw
+ - detailed_log
+ - dns
+ - download_local_upgrade
+ - lan
+ - lock_cell_clear
+ - message
+ - message_drafts
+ - message_outbox
+ - message_set
+ - message_state
+ - message_state
+ - net_advace_set
+ - ntp_server
+ - pin_puk
+ - reset
+ - restore_defaults
+ - shutdown
+ - status1
+ - time_setting
+ - traffic_excess_set
+ - uapxb_wlan_basic_settings
+ - uapxb_wlan_security_settings
+ - upgrade_info
+ - ussd_business
+ - wan
+ - wan_choose_net
+ - wan_ip
+ - wlan_auto_setting
 
 ### Port 3020
 Port 3020 is interesting once you connect to it it immediatly send the banner `ms_version:1` and then appears to send/receive nothing but if you keep connected it starts sending packets with `JSON` payloads "periodically" which appears to be 4-byte length prefixed, see the sample payloads below
